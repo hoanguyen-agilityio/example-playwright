@@ -1,22 +1,24 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test('Verify title contains "Swag Labs"', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Swag Labs/);
 });
 
-test('Generating tests', async ({ page }) => {
+test('Verify user is able to login successful with standard user', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('standard_user');
   await page.locator('[data-test="password"]').click();
   await page.locator('[data-test="password"]').fill('secret_sauce');
   await page.locator('[data-test="login-button"]').click();
+  const inventoryTitle = await page.locator('.title').textContent();
+  expect(inventoryTitle).toContain('Products');
 });
 
-test('Verify user unable to login with locked out user', async ({ page }) => {
+test('Verify user gets error when logging in as locked out user', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('locked_out_user');
@@ -27,7 +29,7 @@ test('Verify user unable to login with locked out user', async ({ page }) => {
   expect(errorMessage).toContain('Epic sadface: Sorry, this user has been locked out.');
 });
 
-test('Verify user is able to navigate to "Your cart" page', async ({ page }) => {
+test('Verify user is able to access cart page', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('standard_user');
@@ -39,7 +41,7 @@ test('Verify user is able to navigate to "Your cart" page', async ({ page }) => 
   expect(cartTitle).toContain('Your Cart');
 });
 
-test('Verify user is able to navigate to "All Items" page', async ({ page }) => {
+test('Verify user can navigate from cart to all items', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('standard_user');
@@ -53,7 +55,7 @@ test('Verify user is able to navigate to "All Items" page', async ({ page }) => 
   expect(allItemsTitle).toContain('Products');
 });
 
-test('Verify user is able to add item to cart and checkout successful', async ({ page }) => {
+test('Verify checkout success after adding item', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill('standard_user');
@@ -73,4 +75,22 @@ test('Verify user is able to add item to cart and checkout successful', async ({
   await page.locator('[data-test="finish"]').click();
   const checkoutSuccessfulTitle = await page.locator('.title').textContent();
   expect(checkoutSuccessfulTitle).toContain('Checkout: Complete!');
+});
+
+test('Verify sorting of items by price ascending', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+  await page.locator('[data-test="username"]').fill('standard_user');
+  await page.locator('[data-test="password"]').fill('secret_sauce');
+  await page.locator('[data-test="login-button"]').click();
+
+  const sortSelect = page.locator('[data-test="product-sort-container"]');
+  const lohiOption = sortSelect.locator('option[value="lohi"]');
+
+  await expect(lohiOption).toHaveText('Price (low to high)');
+  await sortSelect.selectOption('lohi');
+
+  const firstItem = page.locator('[data-test="inventory-item"]').first();
+  const priceText = await firstItem.locator('[data-test="inventory-item-price"]').textContent();
+
+  expect(priceText?.trim()).toBe('$7.99');
 });
