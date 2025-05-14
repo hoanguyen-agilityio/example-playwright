@@ -18,6 +18,7 @@ test('Verify user is able to login successful with standard user', async ({ page
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
   await loginButton.click();
+  await expect(page).toHaveURL(/.*inventory/);
 
   const inventoryTitle = await title.textContent();
   expect(inventoryTitle).toContain('Products');
@@ -53,6 +54,7 @@ test('Verify user is able to access cart page', async ({ page }) => {
   await loginButton.click();
   await cartButton.click();
 
+  await expect(page).toHaveURL(/.*cart/);
   const cartTitle = await cartTitleLocator.textContent();
   expect(cartTitle).toContain('Your Cart');
 });
@@ -76,6 +78,7 @@ test('Verify user can navigate from cart to all items', async ({ page }) => {
   await burgerMenuButton.click();
   await allItemButton.click();
 
+  await expect(page).toHaveURL(/.*inventory/);
   const allItemsTitle = await allItemsTitleLocator.textContent();
   expect(allItemsTitle).toContain('Products');
 });
@@ -107,6 +110,7 @@ test('Verify checkout success after adding item', async ({ page }) => {
   await postalCodeInput.fill('12345');
   await continueButton.click();
   await finishButton.click();
+  await expect(page).toHaveURL(/.*checkout-complete/);
 
   const checkoutSuccessfulTitle = await checkoutSuccessfulTitleLocator.textContent();
   expect(checkoutSuccessfulTitle).toContain('Checkout: Complete!');
@@ -124,6 +128,7 @@ test('Verify sorting of items by price ascending', async ({ page }) => {
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
   await loginButton.click();
+  await expect(page).toHaveURL(/.*inventory/);
   await expect(lohiOption).toHaveText('Price (low to high)');
   await sortSelect.selectOption('lohi');
   
