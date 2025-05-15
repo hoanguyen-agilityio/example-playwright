@@ -43,56 +43,57 @@ test.describe('Login Tests', () => {
 })
 
 test.describe('Cart and Navigation Tests', () => {
-  test('Verify user is able to access cart page', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
-  
+    
     const usernameInput = page.getByPlaceholder('Username');
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
-    const cartButton = page.getByTestId('shopping-cart-link');
-    const cartTitleLocator = page.getByTestId('title');
-  
+
     await usernameInput.fill('standard_user');
     await passwordInput.fill('secret_sauce');
     await loginButton.click();
-    await cartButton.click();
+  })
+  test('Verify user is able to access cart page', async ({ page }) => {
+    const cartButton = page.getByTestId('shopping-cart-link');
+    const cartTitleLocator = page.getByTestId('title');
   
+    await cartButton.click();
     await expect(page).toHaveURL(/.*cart/);
+
     const cartTitle = await cartTitleLocator.textContent();
     expect(cartTitle).toContain('Your Cart');
   });
 
   test('Verify user can navigate from cart to all items', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-  
-    const usernameInput = page.getByPlaceholder('Username');
-    const passwordInput = page.getByPlaceholder('Password');
-    const loginButton = page.getByRole('button', { name: 'Login'});
     const cartButton = page.getByTestId('shopping-cart-link');
     const burgerMenuButton = page.getByRole('button', { name: 'Open Menu'});
     const allItemButton = page.getByTestId('inventory-sidebar-link');
     const allItemsTitleLocator = page.getByTestId('title');
   
-    await usernameInput.fill('standard_user');
-    await passwordInput.fill('secret_sauce');
-    await loginButton.click();
     await cartButton.click();
     await burgerMenuButton.click();
     await allItemButton.click();
-  
     await expect(page).toHaveURL(/.*inventory/);
+
     const allItemsTitle = await allItemsTitleLocator.textContent();
     expect(allItemsTitle).toContain('Products');
   });
 })
 
 test.describe('Checkout Tests', () => {
-  test('Verify checkout success after adding item', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
   
     const usernameInput = page.getByPlaceholder('Username');
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
+
+    await usernameInput.fill('standard_user');
+    await passwordInput.fill('secret_sauce');
+    await loginButton.click();
+  })
+  test('Verify checkout success after adding item', async ({ page }) => {
     const addToCartButton = page.locator('.inventory_item')
       .filter({ hasText: 'Sauce Labs Backpack'})
       .getByRole('button', { name: 'Add to cart'})
@@ -105,9 +106,6 @@ test.describe('Checkout Tests', () => {
     const finishButton = page.getByRole('button', { name: 'Finish'});
     const checkoutSuccessfulTitleLocator = page.getByTestId('title');
   
-    await usernameInput.fill('standard_user');
-    await passwordInput.fill('secret_sauce');
-    await loginButton.click();
     await addToCartButton.click();
     await cartButton.click();
     await checkoutButton.click();
@@ -124,24 +122,25 @@ test.describe('Checkout Tests', () => {
 })
 
 test.describe('Sorting Tests', () => {
-  test('Verify sorting of items by price ascending', async ({ page }) => {
+  test.beforeEach(async ({ page}) => {
     await page.goto('https://www.saucedemo.com/');
   
     const usernameInput = page.getByPlaceholder('Username');
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
-    const sortSelect = page.getByTestId('product-sort-container');
-    
+
     await usernameInput.fill('standard_user');
     await passwordInput.fill('secret_sauce');
     await loginButton.click();
+  })
+  test('Verify sorting of items by price ascending', async ({ page }) => {
+    const sortSelect = page.getByTestId('product-sort-container');
+    
     await expect(page).toHaveURL(/.*inventory/);
-  
     await sortSelect.selectOption('lohi');
     
     const firstItem = page.getByTestId('inventory-item').first();
     const priceText = await firstItem.nth(0).getByTestId('inventory-item-price').textContent();
-  
     expect(priceText?.trim()).toBe('$7.99');
   });
 })
