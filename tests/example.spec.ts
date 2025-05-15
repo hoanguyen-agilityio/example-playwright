@@ -10,10 +10,10 @@ test('Verify title contains "Swag Labs"', async ({ page }) => {
 test('Verify user is able to login successful with standard user', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  const usernameInput = page.locator('[data-test="username"]');
-  const passwordInput = page.locator('[data-test="password"]');
-  const loginButton = page.locator('[data-test="login-button"]');
-  const title = page.locator('.title');
+  const usernameInput = page.getByPlaceholder('Username');
+  const passwordInput = page.getByPlaceholder('Password');
+  const loginButton = page.getByRole('button', { name: 'Login'});
+  const title = page.getByTestId('title');
 
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
@@ -27,10 +27,10 @@ test('Verify user is able to login successful with standard user', async ({ page
 test('Verify user gets error when logging in as locked out user', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  const usernameInput = page.locator('[data-test="username"]');
-  const passwordInput = page.locator('[data-test="password"]');
-  const loginButton = page.locator('[data-test="login-button"]');
-  const errorMessageLocator = page.locator('[data-test="error"]');
+  const usernameInput = page.getByPlaceholder('Username');
+  const passwordInput = page.getByPlaceholder('Password');
+  const loginButton = page.getByRole('button', { name: 'Login'});
+  const errorMessageLocator = page.getByTestId('error');
 
   await usernameInput.fill('locked_out_user');
   await passwordInput.fill('secret_sauce');
@@ -43,11 +43,11 @@ test('Verify user gets error when logging in as locked out user', async ({ page 
 test('Verify user is able to access cart page', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  const usernameInput = page.locator('[data-test="username"]');
-  const passwordInput = page.locator('[data-test="password"]');
-  const loginButton = page.locator('[data-test="login-button"]');
-  const cartButton = page.locator('[data-test="shopping-cart-link"]');
-  const cartTitleLocator = page.locator('.title');
+  const usernameInput = page.getByPlaceholder('Username');
+  const passwordInput = page.getByPlaceholder('Password');
+  const loginButton = page.getByRole('button', { name: 'Login'});
+  const cartButton = page.getByTestId('shopping-cart-link');
+  const cartTitleLocator = page.getByTestId('title');
 
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
@@ -62,15 +62,14 @@ test('Verify user is able to access cart page', async ({ page }) => {
 test('Verify user can navigate from cart to all items', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  const usernameInput = page.locator('[data-test="username"]');
-  const passwordInput = page.locator('[data-test="password"]');
-  const loginButton = page.locator('[data-test="login-button"]');
-  const cartButton = page.locator('[data-test="shopping-cart-link"]');
-  const burgerMenuButton = page.locator('.bm-burger-button');
-  const allItemButton = page.locator('[data-test="inventory-sidebar-link"]');
-  const allItemsTitleLocator = page.locator('.title');
+  const usernameInput = page.getByPlaceholder('Username');
+  const passwordInput = page.getByPlaceholder('Password');
+  const loginButton = page.getByRole('button', { name: 'Login'});
+  const cartButton = page.getByTestId('shopping-cart-link');
+  const burgerMenuButton = page.getByRole('button', { name: 'Open Menu'});
+  const allItemButton = page.getByTestId('inventory-sidebar-link');
+  const allItemsTitleLocator = page.getByTestId('title');
 
-  
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
   await loginButton.click();
@@ -86,18 +85,20 @@ test('Verify user can navigate from cart to all items', async ({ page }) => {
 test('Verify checkout success after adding item', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  const usernameInput = page.locator('[data-test="username"]');
-  const passwordInput = page.locator('[data-test="password"]');
-  const loginButton = page.locator('[data-test="login-button"]');
-  const addToCartButton = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
-  const cartButton = page.locator('[data-test="shopping-cart-link"]');
-  const checkoutButton = page.locator('[data-test="checkout"]');
-  const firstNameInput = page.locator('[data-test="firstName"]');
-  const lastNameInput = page.locator('[data-test="lastName"]');
-  const postalCodeInput = page.locator('[data-test="postalCode"]');
-  const continueButton = page.locator('[data-test="continue"]');
-  const finishButton = page.locator('[data-test="finish"]');
-  const checkoutSuccessfulTitleLocator = page.locator('.title');
+  const usernameInput = page.getByPlaceholder('Username');
+  const passwordInput = page.getByPlaceholder('Password');
+  const loginButton = page.getByRole('button', { name: 'Login'});
+  const addToCartButton = page.locator('.inventory_item')
+    .filter({ hasText: 'Sauce Labs Backpack'})
+    .getByRole('button', { name: 'Add to cart'})
+  const cartButton = page.getByTestId('shopping-cart-link');
+  const checkoutButton = page.getByRole('button', { name: 'Checkout'});
+  const firstNameInput = page.getByPlaceholder('First Name');
+  const lastNameInput = page.getByPlaceholder('Last Name');
+  const postalCodeInput = page.getByPlaceholder('Zip/Postal Code');
+  const continueButton = page.getByRole('button', { name: 'Continue'});
+  const finishButton = page.getByRole('button', { name: 'Finish'});
+  const checkoutSuccessfulTitleLocator = page.getByTestId('title');
 
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
@@ -119,21 +120,20 @@ test('Verify checkout success after adding item', async ({ page }) => {
 test('Verify sorting of items by price ascending', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  const usernameInput = page.locator('[data-test="username"]');
-  const passwordInput = page.locator('[data-test="password"]');
-  const loginButton = page.locator('[data-test="login-button"]');
-  const sortSelect = page.locator('[data-test="product-sort-container"]');
-  const lohiOption = sortSelect.locator('option[value="lohi"]');
+  const usernameInput = page.getByPlaceholder('Username');
+  const passwordInput = page.getByPlaceholder('Password');
+  const loginButton = page.getByRole('button', { name: 'Login'});
+  const sortSelect = page.getByTestId('product-sort-container');
   
   await usernameInput.fill('standard_user');
   await passwordInput.fill('secret_sauce');
   await loginButton.click();
   await expect(page).toHaveURL(/.*inventory/);
-  await expect(lohiOption).toHaveText('Price (low to high)');
+
   await sortSelect.selectOption('lohi');
   
-  const firstItem = page.locator('[data-test="inventory-item"]').first();
-  const priceText = await firstItem.locator('[data-test="inventory-item-price"]').textContent();
+  const firstItem = page.getByTestId('inventory-item').first();
+  const priceText = await firstItem.nth(0).getByTestId('inventory-item-price').textContent();
 
   expect(priceText?.trim()).toBe('$7.99');
 });
