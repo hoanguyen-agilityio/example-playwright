@@ -16,6 +16,10 @@ test.describe('Login Tests', () => {
     const loginButton = page.getByRole('button', { name: 'Login'});
     const title = page.getByTestId('title');
   
+    await expect(usernameInput).toBeVisible();
+    await expect(passwordInput).toBeVisible();
+    await expect(loginButton).toBeEnabled();
+
     await usernameInput.fill('standard_user');
     await passwordInput.fill('secret_sauce');
     await loginButton.click();
@@ -32,6 +36,8 @@ test.describe('Login Tests', () => {
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
     const errorMessageLocator = page.getByTestId('error');
+
+    await expect(loginButton).toBeEnabled();
   
     await usernameInput.fill('locked_out_user');
     await passwordInput.fill('secret_sauce');
@@ -50,6 +56,8 @@ test.describe('Cart and Navigation Tests', () => {
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
 
+    await expect(loginButton).toBeEnabled();
+
     await usernameInput.fill('standard_user');
     await passwordInput.fill('secret_sauce');
     await loginButton.click();
@@ -58,6 +66,7 @@ test.describe('Cart and Navigation Tests', () => {
     const cartButton = page.getByTestId('shopping-cart-link');
     const cartTitleLocator = page.getByTestId('title');
   
+    await expect(cartButton).toBeVisible();
     await cartButton.click();
     await expect(page).toHaveURL(/.*cart/);
 
@@ -72,7 +81,9 @@ test.describe('Cart and Navigation Tests', () => {
     const allItemsTitleLocator = page.getByTestId('title');
   
     await cartButton.click();
+    await expect(burgerMenuButton).toBeVisible();
     await burgerMenuButton.click();
+    await expect(allItemButton).toBeVisible();
     await allItemButton.click();
     await expect(page).toHaveURL(/.*inventory/);
 
@@ -88,6 +99,8 @@ test.describe('Checkout Tests', () => {
     const usernameInput = page.getByPlaceholder('Username');
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
+
+    await expect(loginButton).toBeEnabled();
 
     await usernameInput.fill('standard_user');
     await passwordInput.fill('secret_sauce');
@@ -106,13 +119,20 @@ test.describe('Checkout Tests', () => {
     const finishButton = page.getByRole('button', { name: 'Finish'});
     const checkoutSuccessfulTitleLocator = page.getByTestId('title');
   
+    await expect(addToCartButton).toBeEnabled();
     await addToCartButton.click();
+
+    await expect(cartButton).toBeVisible();
     await cartButton.click();
+
+    await expect(checkoutButton).toBeEnabled();
     await checkoutButton.click();
+
     await firstNameInput.fill('Hoa');
     await lastNameInput.fill('Nguyen');
     await postalCodeInput.fill('12345');
     await continueButton.click();
+    await expect(finishButton).toBeEnabled();
     await finishButton.click();
     await expect(page).toHaveURL(/.*checkout-complete/);
   
@@ -129,6 +149,8 @@ test.describe('Sorting Tests', () => {
     const passwordInput = page.getByPlaceholder('Password');
     const loginButton = page.getByRole('button', { name: 'Login'});
 
+    await expect(loginButton).toBeEnabled();
+
     await usernameInput.fill('standard_user');
     await passwordInput.fill('secret_sauce');
     await loginButton.click();
@@ -137,6 +159,7 @@ test.describe('Sorting Tests', () => {
     const sortSelect = page.getByTestId('product-sort-container');
     
     await expect(page).toHaveURL(/.*inventory/);
+    await expect(sortSelect).toBeVisible();
     await sortSelect.selectOption('lohi');
     
     const firstItem = page.getByTestId('inventory-item').first();
