@@ -29,25 +29,38 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    baseURL: 'https://www.saucedemo.com/',
+    headless: true,
     trace: 'on-first-retry',
     testIdAttribute: 'data-test'
   },
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: '.auth/standard_user.json',
+      },
+      dependencies: ['setup'],
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    // },
   ],
 });
