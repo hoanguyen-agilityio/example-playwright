@@ -1,14 +1,15 @@
 import { test as setup, expect } from '@playwright/test';
 import path from 'path';
+import { BASE_URL, PRODUCTS_URL, USER } from '../constants';
 
 const authFile = path.join(__dirname, '.auth/standard_user.json');
 
 setup('authenticate', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-  await page.getByPlaceholder('Username').fill('standard_user');
-  await page.getByPlaceholder('Password').fill('secret_sauce');
+  await page.goto(BASE_URL);
+  await page.getByPlaceholder('Username').fill(USER.STANDARD_USER);
+  await page.getByPlaceholder('Password').fill(USER.PASSWORD);
   await page.getByRole('button', { name: 'Login'}).click();
-  await page.waitForURL('https://www.saucedemo.com/inventory.html');
+  await page.waitForURL(PRODUCTS_URL);
 
   await page.context().storageState({ path: authFile });
 });

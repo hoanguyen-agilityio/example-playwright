@@ -1,6 +1,7 @@
 import test, { expect } from "@playwright/test";
 import { LoginPage } from "../pages/loginPage";
 import { InventoryPage } from "../pages/InventoryPage";
+import { USER } from "../constants";
 
 test.use({
   storageState: {
@@ -22,7 +23,7 @@ test.describe('Login Tests', () => {
     const inventory = new InventoryPage(page);
 
     await login.goto();
-    await login.login('standard_user', 'secret_sauce');
+    await login.login(USER.STANDARD_USER, USER.PASSWORD);
     await expect(page).toHaveURL(/.*inventory/);
   
     const inventoryTitle = await inventory.title.textContent();
@@ -33,7 +34,7 @@ test.describe('Login Tests', () => {
     const login = new LoginPage(page);
 
     await login.goto();
-    await login.login('locked_out_user', 'secret_sauce');
+    await login.login(USER.LOCKED_OUT_USER, USER.PASSWORD);
   
     const errorMessage = await login.errorMessage.textContent();
     expect(errorMessage).toContain('Epic sadface: Sorry, this user has been locked out.');
