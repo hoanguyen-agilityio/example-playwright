@@ -1,6 +1,7 @@
 import { test, expect, Page } from '@playwright/test';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
+import { PRODUCTS_URL } from '../constants';
 
 async function addItemToCart(page: Page, itemName: string) {
   await test.step(`Add "${itemName}" to cart`, async () => {
@@ -24,6 +25,7 @@ test.describe('Checkout Tests', () => {
     const cart = new CartPage(page);
     const checkout = new CheckoutPage(page);
 
+    await page.goto(PRODUCTS_URL);
     await addItemToCart(page, 'Sauce Labs Backpack');
     await proceedToCheckout(cart);
     await checkout.completeCheckout('Hoa', 'Nguyen', '12345');

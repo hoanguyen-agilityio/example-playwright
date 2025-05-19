@@ -2,7 +2,7 @@ import { test as setup, expect } from '@playwright/test';
 import path from 'path';
 import { BASE_URL, PRODUCTS_URL, USER } from '../constants';
 
-const authFile = path.join(__dirname, '.auth/standard_user.json');
+const authFile = path.join(__dirname, '../.auth/standard_user.json');
 
 setup('authenticate', async ({ page }) => {
   await page.goto(BASE_URL);

@@ -32,7 +32,10 @@ export default defineConfig({
     baseURL: 'https://www.saucedemo.com/',
     headless: true,
     trace: 'on-first-retry',
-    testIdAttribute: 'data-test'
+    testIdAttribute: 'data-test',
+    launchOptions: {
+      slowMo: 50,
+    }
   },
 
   /* Configure projects for major browsers */
@@ -42,7 +45,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: '.auth/standard_user.json',
+        storageState: './.auth/standard_user.json',
       },
       dependencies: ['setup'],
     },

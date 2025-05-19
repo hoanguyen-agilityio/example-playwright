@@ -1,11 +1,13 @@
 import test, { expect } from "@playwright/test";
 import { CartPage } from "../pages/CartPage";
 import { InventoryPage } from "../pages/InventoryPage";
+import { PRODUCTS_URL } from "../constants";
 
 test.describe('Cart and Navigation Tests', () => {
   test('Verify user is able to access cart page', async ({ page }) => {
     const cart = new CartPage(page);
 
+    await page.goto(PRODUCTS_URL);
     await cart.openCart();
     await expect(page).toHaveURL(/.*cart/);
 
@@ -16,7 +18,8 @@ test.describe('Cart and Navigation Tests', () => {
   test('Verify user can navigate from cart to all items', async ({ page }) => {
     const cart = new CartPage(page);
     const inventory = new InventoryPage(page);
-
+    
+    await page.goto(PRODUCTS_URL);
     await cart.openCart();
     await cart.goToAllItems();
     await expect(page).toHaveURL(/.*inventory/);
