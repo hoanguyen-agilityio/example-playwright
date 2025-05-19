@@ -1,7 +1,7 @@
 import test, { expect } from "@playwright/test";
+import { USER } from "../constants";
 import { LoginPage } from "../pages/loginPage";
 import { InventoryPage } from "../pages/InventoryPage";
-import { USER } from "../constants";
 
 test.use({
   storageState: {

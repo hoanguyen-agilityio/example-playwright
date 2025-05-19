@@ -1,7 +1,6 @@
 import test, { expect } from "@playwright/test";
-import { LoginPage } from "../pages/loginPage";
-import { InventoryPage } from "../pages/InventoryPage";
 import { PRODUCTS_URL } from "../constants";
+import { InventoryPage } from "../pages/InventoryPage";
 
 test.describe('Sorting Tests', () => {
   test('Verify sorting of items by price ascending', async ({ page }) => {
