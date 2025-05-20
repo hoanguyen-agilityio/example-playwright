@@ -2,7 +2,7 @@
 import test, { expect } from "@playwright/test";
 
 // Constants
-import { BASE_URL, PRODUCTS_URL } from "@/constants";
+import { BASE_URL, HEADINGS, PRODUCTS_URL } from "@/constants";
 
 test.describe('Logout Tests', () => {
   test('Verify user is able to logout successfully', async ({ page }) => {
@@ -23,7 +23,7 @@ test.describe('Logout Tests', () => {
 
     await test.step('Verify user is logged out', async () => {
       await expect(page).toHaveURL(BASE_URL);
-      await expect(page).toHaveTitle(/Swag Labs/);
+      await expect(page).toHaveTitle(HEADINGS.SWAG_LABS);
     });
   })
 })

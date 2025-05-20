@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 // Constants
-import { PRODUCTS_URL } from '@/constants';
+import { CHECKOUT_URL, HEADINGS, PRODUCTS, PRODUCTS_URL, USER } from '@/constants';
 
 // Pages
 import { CartPage, CheckoutPage } from '@/pages';
@@ -18,7 +18,7 @@ test.describe('Checkout Tests', () => {
 
     await test.step(`Add "Sauce Labs Backpack" to cart`, async () => {
       const addToCartButton = page.locator('.inventory_item')
-        .filter({ hasText: 'Sauce Labs Backpack' })
+        .filter({ hasText: PRODUCTS.BACKPACK })
         .getByRole('button', { name: 'Add to cart' })
 
       await addToCartButton.click();
@@ -30,13 +30,13 @@ test.describe('Checkout Tests', () => {
     });
 
     await test.step('Complete the checkout form', async () => {
-      await checkout.completeCheckout('Hoa', 'Nguyen', '12345');
+      await checkout.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
     })
 
     await test.step('Verify checkout completion', async () => {
-      await expect(page).toHaveURL(/.*checkout-complete/);
+      await expect(page).toHaveURL(CHECKOUT_URL);
       await expect(checkout.title).toBeVisible();
-      await expect(checkout.title).toHaveText('Checkout: Complete!')
+      await expect(checkout.title).toHaveText(HEADINGS.CHECKOUT_COMPLETE)
     })
   });
 })
