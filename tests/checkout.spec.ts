@@ -1,7 +1,11 @@
+// Libs
 import { test, expect, Page } from '@playwright/test';
-import { PRODUCTS_URL } from '../constants';
-import { CartPage } from '../pages/CartPage';
-import { CheckoutPage } from '../pages/CheckoutPage';
+
+// Constants
+import { PRODUCTS_URL } from '@/constants';
+
+// Pages
+import { CartPage, CheckoutPage } from '@/pages';
 
 const navigateToProductsPage = async (page: Page) => {
   await test.step('Navigate to product page', async () => {

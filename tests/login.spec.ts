@@ -1,7 +1,11 @@
+// Libs
 import test, { expect } from "@playwright/test";
-import { USER } from "../constants";
-import { LoginPage } from "../pages/loginPage";
-import { InventoryPage } from "../pages/InventoryPage";
+
+// Constants
+import { USER } from "@/constants";
+
+// Pages
+import { LoginPage, InventoryPage } from "@/pages";
 
 test.use({
   storageState: {

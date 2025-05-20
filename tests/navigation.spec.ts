@@ -1,7 +1,11 @@
+// Libs
 import test, { expect } from "@playwright/test";
-import { PRODUCTS_URL } from "../constants";
-import { CartPage } from "../pages/CartPage";
-import { InventoryPage } from "../pages/InventoryPage";
+
+// Constants
+import { PRODUCTS_URL } from "@/constants";
+
+// Pages
+import { CartPage, InventoryPage } from "@/pages";
 
 test.describe('Cart and Navigation Tests', () => {
   test('Verify user is able to access cart page', async ({ page }) => {

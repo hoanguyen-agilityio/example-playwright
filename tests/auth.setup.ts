@@ -1,6 +1,9 @@
+// Libs
 import { test as setup } from '@playwright/test';
 import path from 'path';
-import { BASE_URL, PRODUCTS_URL, USER } from '../constants';
+
+// Constants
+import { BASE_URL, PRODUCTS_URL, USER } from '@/constants';
 
 const authFile = path.join(__dirname, '../.auth/standard_user.json');
 

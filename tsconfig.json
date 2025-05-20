@@ -1,0 +1,38 @@
+
+{
+  "compilerOptions": {
+    "target": "ESNext",                      // Latest JavaScript features
+    "module": "CommonJS",                    // Required for Node.js
+    "lib": ["DOM", "ESNext"],                // Browser and modern JS APIs
+    "types": ["node", "@playwright/test"],   // Add Playwright types for test autocompletion
+    "moduleResolution": "node",              // Resolve modules like Node
+    "esModuleInterop": true,                 // Import compatibility
+    "forceConsistentCasingInFileNames": true,// Prevent casing bugs on Linux
+    "strict": true,                          // Recommended for TS safety
+    "skipLibCheck": true,                    // Speeds up compile
+    "resolveJsonModule": true,               // If you import JSON
+    "isolatedModules": true,                 // Required for transpilation
+    "noEmit": true,                          // Don't output JS files (used with Playwright Test)
+    "baseUrl": ".",                          // Root of the project
+    "paths": {
+      "@/*": ["./*"]                         // Alias "@" to the root directory
+    },
+    "outDir": "./dist",                      // Output directory for compiled files
+    "sourceMap": true,                       // Generate source maps for debugging
+    "declaration": true,                     // Generate .d.ts files
+    "noImplicitAny": true,                   // Error on implied 'any' types
+    "noUnusedLocals": true,                  // Error on unused local variables
+    "noUnusedParameters": true,              // Error on unused parameters
+    "noFallthroughCasesInSwitch": true       // Error on switch case fallthrough
+  },
+  "include": [
+    "**/*.ts",                               // Include all TypeScript files
+    "tests/**/*.ts",                          // Explicitly include test files
+    "constants/**/*.ts",                         // Include utility files
+    "pages/**/*.ts"                          // Include page object model files
+  ],
+  "exclude": [
+    "node_modules",                          // Exclude node_modules
+    "dist"                                   // Exclude compiled output
+  ]
+}
