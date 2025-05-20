@@ -1,5 +1,5 @@
 // Libs
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 // Constants
 import { PRODUCTS_URL } from '@/constants';
@@ -7,52 +7,36 @@ import { PRODUCTS_URL } from '@/constants';
 // Pages
 import { CartPage, CheckoutPage } from '@/pages';
 
-const navigateToProductsPage = async (page: Page) => {
-  await test.step('Navigate to product page', async () => {
-    await page.goto(PRODUCTS_URL)
-  })
-}
-
-const addItemToCart = async (page: Page, itemName: string) => {
-  await test.step(`Add "${itemName}" to cart`, async () => {
-    const addToCartButton = page.locator('.inventory_item')
-      .filter({ hasText: itemName})
-      .getByRole('button', { name: 'Add to cart'})
-
-    await addToCartButton.click();
-  })
-}
-
-const proceedToCheckout = async (cart: CartPage) => {
-  await test.step('Proceed to checkout', async () => {
-    await cart.openCart();
-    await cart.checkoutButton.click();
-  });
-}
-
-const completeCheckout = async (checkout: CheckoutPage, firstName: string, lastName: string, postalCode: string) => {
-  await test.step('Complete the checkout form', async () => {
-    await checkout.completeCheckout(firstName, lastName, postalCode);
-  })
-}
-
-const verifyCheckoutSuccess = async (page: Page, checkout: CheckoutPage) => {
-  await test.step('Verify checkout completion', async () => {
-    await expect(page).toHaveURL(/.*checkout-complete/);
-    await expect(checkout.title).toBeVisible();
-    await expect(checkout.title).toHaveText('Checkout: Complete!')
-  })
-}
-
 test.describe('Checkout Tests', () => {
   test('Verify checkout success after adding item', async ({ page }) => {
     const cart = new CartPage(page);
     const checkout = new CheckoutPage(page);
 
-    await navigateToProductsPage(page);
-    await addItemToCart(page, 'Sauce Labs Backpack');
-    await proceedToCheckout(cart);
-    await completeCheckout(checkout ,'Hoa', 'Nguyen', '12345');
-    await verifyCheckoutSuccess(page, checkout)
+    await test.step('Navigate to product page', async () => {
+      await page.goto(PRODUCTS_URL)
+    })
+
+    await test.step(`Add "Sauce Labs Backpack" to cart`, async () => {
+      const addToCartButton = page.locator('.inventory_item')
+        .filter({ hasText: 'Sauce Labs Backpack' })
+        .getByRole('button', { name: 'Add to cart' })
+
+      await addToCartButton.click();
+    })
+
+    await test.step('Proceed to checkout', async () => {
+      await cart.openCart();
+      await cart.checkoutButton.click();
+    });
+
+    await test.step('Complete the checkout form', async () => {
+      await checkout.completeCheckout('Hoa', 'Nguyen', '12345');
+    })
+
+    await test.step('Verify checkout completion', async () => {
+      await expect(page).toHaveURL(/.*checkout-complete/);
+      await expect(checkout.title).toBeVisible();
+      await expect(checkout.title).toHaveText('Checkout: Complete!')
+    })
   });
 })
