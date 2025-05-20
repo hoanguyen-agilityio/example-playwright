@@ -35,9 +35,8 @@ const completeCheckout = async (checkout: CheckoutPage, firstName: string, lastN
 const verifyCheckoutSuccess = async (page: Page, checkout: CheckoutPage) => {
   await test.step('Verify checkout completion', async () => {
     await expect(page).toHaveURL(/.*checkout-complete/);
-  
-    const checkoutSuccessfulTitle = await checkout.title.textContent();
-    expect(checkoutSuccessfulTitle).toContain('Checkout: Complete!');
+    await expect(checkout.title).toBeVisible();
+    await expect(checkout.title).toHaveText('Checkout: Complete!')
   })
 }
 

@@ -10,9 +10,8 @@ test.describe('Cart and Navigation Tests', () => {
     await page.goto(PRODUCTS_URL);
     await cart.openCart();
     await expect(page).toHaveURL(/.*cart/);
-
-    const cartTitle = await cart.title.textContent();
-    expect(cartTitle).toContain('Your Cart');
+    await expect(cart.title).toBeVisible();
+    await expect(cart.title).toHaveText('Your Cart');
   });
 
   test('Verify user can navigate from cart to all items', async ({ page }) => {
@@ -23,8 +22,7 @@ test.describe('Cart and Navigation Tests', () => {
     await cart.openCart();
     await cart.goToAllItems();
     await expect(page).toHaveURL(/.*inventory/);
-
-    const allItemsTitle = await inventory.title.textContent();
-    expect(allItemsTitle).toContain('Products');
+    await expect(inventory.title).toBeVisible();
+    await expect(inventory.title).toHaveText('Products')
   });
 })

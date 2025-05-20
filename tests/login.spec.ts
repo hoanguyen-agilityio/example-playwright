@@ -25,9 +25,8 @@ test.describe('Login Tests', () => {
     await login.goto();
     await login.login(USER.STANDARD_USER, USER.PASSWORD);
     await expect(page).toHaveURL(/.*inventory/);
-  
-    const inventoryTitle = await inventory.title.textContent();
-    expect(inventoryTitle).toContain('Products');
+    await expect(inventory.title).toBeVisible();
+    await expect(inventory.title).toHaveText('Products');
   });
   
   test('Verify user gets error when logging in as locked out user', async ({ page }) => {
@@ -35,8 +34,7 @@ test.describe('Login Tests', () => {
 
     await login.goto();
     await login.login(USER.LOCKED_OUT_USER, USER.PASSWORD);
-  
-    const errorMessage = await login.errorMessage.textContent();
-    expect(errorMessage).toContain('Epic sadface: Sorry, this user has been locked out.');
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText('Epic sadface: Sorry, this user has been locked out.')
   });
 })
