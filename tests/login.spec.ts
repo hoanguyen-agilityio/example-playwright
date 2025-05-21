@@ -41,4 +41,58 @@ test.describe('Login Tests', () => {
     await expect(login.errorMessage).toBeVisible();
     await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.USER_LOCKED)
   });
-})
+
+  test('Verify user cannot login with empty username and password', async ({ page }) => {
+    const login = new LoginPage(page);
+
+    await login.goto();
+    await login.login('', '');
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.USERNAME_REQUIRED)
+  });
+
+  test('Verify user cannot login with valid username and empty password', async ({ page }) => {
+    const login = new LoginPage(page);
+
+    await login.goto();
+    await login.login(USER.STANDARD_USER, '');
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.PASSWORD_REQUIRED)
+  });
+
+  test('Verify user cannot login with empty username and valid password', async ({ page }) => {
+    const login = new LoginPage(page);
+
+    await login.goto();
+    await login.login('', USER.PASSWORD);
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.USERNAME_REQUIRED);
+  });
+
+  test('Verify user cannot login with invalid username and password', async ({ page }) => {
+    const login = new LoginPage(page);
+
+    await login.goto();
+    await login.login(USER.INVALID_USERNAME, USER.INVALID_PASSWORD);
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.INVALID_ACCOUNT);
+  });
+
+  test('Verify user cannot login with correct username and incorrect password', async ({ page}) => {
+    const login = new LoginPage(page);
+
+    await login.goto();
+    await login.login(USER.STANDARD_USER, USER.INVALID_PASSWORD);
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.INVALID_ACCOUNT);
+  });
+
+  test('Verify user cannot login with incorrect username and correct password', async ({ page }) => {
+    const login = new LoginPage(page);
+
+    await login.goto();
+    await login.login(USER.INVALID_USERNAME, USER.PASSWORD);
+    await expect(login.errorMessage).toBeVisible();
+    await expect(login.errorMessage).toHaveText(ERROR_MESSAGES.INVALID_ACCOUNT);
+  });
+});
