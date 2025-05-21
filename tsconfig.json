@@ -26,10 +26,11 @@
     "noFallthroughCasesInSwitch": true       // Error on switch case fallthrough
   },
   "include": [
-    "**/*.ts",                               // Include all TypeScript files
-    "tests/**/*.ts",                          // Explicitly include test files
-    "constants/**/*.ts",                         // Include utility files
-    "pages/**/*.ts"                          // Include page object model files
+    "**/*.ts",                        
+    "tests/**/*.ts",                       
+    "constants/**/*.ts",                     
+    "pages/**/*.ts",
+    "fixtures/**/*.ts"                         
   ],
   "exclude": [
     "node_modules",                          // Exclude node_modules
