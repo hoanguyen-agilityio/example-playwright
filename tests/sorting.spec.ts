@@ -1,6 +1,11 @@
+// Libs
 import test, { expect } from "@playwright/test";
-import { PRODUCTS_URL } from "../constants";
-import { InventoryPage } from "../pages/InventoryPage";
+
+// Constants
+import { INVENTORY_URL, PRODUCTS_URL } from "@/constants";
+
+// Pages
+import { InventoryPage } from "@/pages";
 
 test.describe('Sorting Tests', () => {
   test('Verify sorting of items by price ascending', async ({ page }) => {
@@ -8,7 +13,7 @@ test.describe('Sorting Tests', () => {
     
     await page.goto(PRODUCTS_URL);
     await inventory.sortByPriceLowToHigh();
-    await expect(page).toHaveURL(/.*inventory/);
+    await expect(page).toHaveURL(INVENTORY_URL);
     
     const prices = await inventory.getAllItemPrices();
     const sorted = [...prices].sort((a, b) => a - b);
