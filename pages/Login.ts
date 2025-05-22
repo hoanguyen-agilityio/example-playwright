@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 import { BASE_URL } from '../constants';
 
 export class LoginPage {
@@ -12,7 +12,7 @@ export class LoginPage {
     this.page = page;
     this.usernameInput = page.getByPlaceholder('Username');
     this.passwordInput = page.getByPlaceholder('Password');
-    this.loginButton = page.getByRole('button', { name: 'Login'});
+    this.loginButton = page.getByRole('button', { name: 'Login' });
     this.errorMessage = page.getByTestId('error');
   }
 
@@ -24,5 +24,10 @@ export class LoginPage {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
+  }
+
+  async expectError(message: string) {
+    await expect(this.errorMessage).toBeVisible();
+    await expect(this.errorMessage).toHaveText(message);
   }
 }
