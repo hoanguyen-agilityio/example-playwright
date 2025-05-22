@@ -1,5 +1,5 @@
 import { test as base, expect } from '@playwright/test';
-import { CartPage, CheckoutPage, InventoryPage, LoginPage, SidebarMenu } from "@/pages"
+import { CartPage, CheckoutPage, DetailPage, InventoryPage, LoginPage, SidebarMenu } from "@/pages"
 
 type PageObjects = {
   loginPage: LoginPage;
@@ -7,6 +7,7 @@ type PageObjects = {
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
   sidebarMenu: SidebarMenu;
+  detailPage: DetailPage;
 };
 
 const test = base.extend<PageObjects>({
@@ -39,6 +40,12 @@ const test = base.extend<PageObjects>({
     const sidebarMenu = new SidebarMenu(page);
 
     await use(sidebarMenu);
+  },
+
+  detailPage: async ({ page }, use) => {
+    const detailPage = new DetailPage(page);
+
+    await use(detailPage);
   }
 });
 

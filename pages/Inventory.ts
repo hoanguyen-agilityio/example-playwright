@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class InventoryPage {
   readonly page: Page;
@@ -60,5 +60,13 @@ export class InventoryPage {
     }
 
     return names;
+  }
+
+  async goToProductDetailByName(productName: string) {
+    const productCard = this.page.locator('.inventory_item').filter({ hasText: productName });
+    const productTitle = productCard.getByTestId('inventory-item-name');
+
+    await expect(productCard).toBeVisible();
+    await productTitle.click();
   }
 }
