@@ -1,5 +1,5 @@
 // Libs
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@/fixtures';
 
 // Constants
 import {
@@ -12,17 +12,8 @@ import {
   USER
 } from '@/constants';
 
-// Pages
-import { CartPage, CheckoutPage } from '@/pages';
-
 test.describe('Checkout Tests', () => {
-  let cart: CartPage;
-  let checkout: CheckoutPage;
-
-  test.beforeEach(async ({ page }) => {
-    cart = new CartPage(page);
-    checkout = new CheckoutPage(page);
-
+  test.beforeEach(async ({ page, cartPage }) => {
     await test.step('Navigate to product page', async () => {
       await page.goto(PRODUCTS_URL);
     });
@@ -36,46 +27,46 @@ test.describe('Checkout Tests', () => {
     });
 
     await test.step('Proceed to checkout', async () => {
-      await cart.openCart();
-      await cart.checkoutButton.click();
+      await cartPage.openCart();
+      await cartPage.checkoutButton.click();
     });
   });
 
-  test('Verify checkout success after adding item', async ({ page }) => {
+  test('Verify checkout success after adding item', async ({ page, checkoutPage }) => {
     await test.step('Complete the checkout form', async () => {
-      await checkout.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
+      await checkoutPage.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
     });
 
     await test.step('Verify checkout completion', async () => {
       await expect(page).toHaveURL(CHECKOUT_URL);
-      await expect(checkout.title).toBeVisible();
-      await expect(checkout.title).toHaveText(HEADINGS.CHECKOUT_COMPLETE);
+      await expect(checkoutPage.title).toBeVisible();
+      await expect(checkoutPage.title).toHaveText(HEADINGS.CHECKOUT_COMPLETE);
     });
   });
 
-  test('Verify user cannot checkout with empty fields', async ({ page }) => {
+  test('Verify user cannot checkout with empty fields', async ({ page, checkoutPage }) => {
     await test.step('Try to submit empty form', async () => {
-      await checkout.fillCheckoutForm(USER.EMPTY, USER.EMPTY, USER.EMPTY);
-      await checkout.continueButton.click();
+      await checkoutPage.fillCheckoutForm(USER.EMPTY, USER.EMPTY, USER.EMPTY);
+      await checkoutPage.continueButton.click();
     });
 
     await test.step('Verify checkout failure', async () => {
       await expect(page).toHaveURL(CHECKOUT_STEP_ONE);
-      await expect(checkout.errorMessage).toBeVisible();
-      await expect(checkout.errorMessage).toHaveText(ERROR_MESSAGES.FIRST_NAME_REQUIRED);
+      await expect(checkoutPage.errorMessage).toBeVisible();
+      await expect(checkoutPage.errorMessage).toHaveText(ERROR_MESSAGES.FIRST_NAME_REQUIRED);
     });
   });
 
-  test('Verify user cannot checkout with only first and last name', async ({ page }) => {
+  test('Verify user cannot checkout with only first and last name', async ({ page, checkoutPage }) => {
     await test.step('Try to submit incomplete form', async () => {
-      await checkout.fillCheckoutForm(USER.FIRST_NAME, USER.LAST_NAME, USER.EMPTY);
-      await checkout.continueButton.click();
+      await checkoutPage.fillCheckoutForm(USER.FIRST_NAME, USER.LAST_NAME, USER.EMPTY);
+      await checkoutPage.continueButton.click();
     });
 
     await test.step('Verify checkout failure', async () => {
       await expect(page).toHaveURL(CHECKOUT_STEP_ONE);
-      await expect(checkout.errorMessage).toBeVisible();
-      await expect(checkout.errorMessage).toHaveText(ERROR_MESSAGES.POSTAL_CODE);
+      await expect(checkoutPage.errorMessage).toBeVisible();
+      await expect(checkoutPage.errorMessage).toHaveText(ERROR_MESSAGES.POSTAL_CODE);
     });
   })
 });

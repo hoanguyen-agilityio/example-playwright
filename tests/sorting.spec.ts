@@ -1,11 +1,8 @@
 // Libs
-import test, { expect } from "@playwright/test";
+import { test, expect } from "@/fixtures";
 
 // Constants
 import { INVENTORY_URL, PRODUCTS_URL } from "@/constants";
-
-// Pages
-import { InventoryPage } from "@/pages";
 
 test.describe('Sorting Tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -14,11 +11,9 @@ test.describe('Sorting Tests', () => {
     });
   });
 
-  test('Verify sorting of items by price ascending', async ({ page }) => {
-    const inventory = new InventoryPage(page);
-
+  test('Verify sorting of items by price ascending', async ({ page, inventoryPage }) => {
     await test.step('Sort items by price low to high', async () => {
-      await inventory.sortByPriceLowToHigh();
+      await inventoryPage.sortByPriceLowToHigh();
     });
 
     await test.step('Verify URL is correct after sorting', async () => {
@@ -26,18 +21,16 @@ test.describe('Sorting Tests', () => {
     });
 
     await test.step('Get all item prices and verify ascending sort', async () => {
-      const prices = await inventory.getAllItemPrices();
+      const prices = await inventoryPage.getAllItemPrices();
       const sorted = [...prices].sort((a, b) => a - b);
 
       expect(prices).toEqual(sorted);
     });
   });
 
-  test('Verify user can sort products by name (Z to A)', async ({ page }) => {
-    const inventory = new InventoryPage(page);
-
+  test('Verify user can sort products by name (Z to A)', async ({ page, inventoryPage }) => {
     await test.step('Sort items by name Z to A', async () => {
-      await inventory.sortByNameZToA();
+      await inventoryPage.sortByNameZToA();
     });
 
     await test.step('Verify URL is correct after sorting', async () => {
@@ -45,18 +38,16 @@ test.describe('Sorting Tests', () => {
     });
 
     await test.step('Get all item names and verify Z to A sort', async () => {
-      const names = await inventory.getAllItemNames();
+      const names = await inventoryPage.getAllItemNames();
       const sorted = [...names].sort((a, b) => b.localeCompare(a));
 
       expect(names).toEqual(sorted);
     });
   });
 
-  test('Verify user can sort products by price (high to low)', async ({ page }) => {
-    const inventory = new InventoryPage(page);
-
+  test('Verify user can sort products by price (high to low)', async ({ page, inventoryPage }) => {
     await test.step('Sort items by price high to low', async () => {
-      await inventory.sortByPriceHighToLow();
+      await inventoryPage.sortByPriceHighToLow();
     });
 
     await test.step('Verify URL is correct after sorting', async () => {
@@ -64,7 +55,7 @@ test.describe('Sorting Tests', () => {
     });
 
     await test.step('Get all item prices and verify high to low sort', async () => {
-      const prices = await inventory.getAllItemPrices();
+      const prices = await inventoryPage.getAllItemPrices();
       const sorted = [...prices].sort((a, b) => b - a);
 
       expect(prices).toEqual(sorted);
