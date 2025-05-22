@@ -1,8 +1,8 @@
 import { PRODUCTS_URL } from "@/constants";
-import test, { expect } from "@playwright/test";
+import { test, expect } from "@/fixtures";
 
 test.describe('Remove From Cart Tests', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, cartPage }) => {
     await test.step('Navigate to product page', async () => {
       await page.goto(PRODUCTS_URL);
     });
@@ -20,35 +20,28 @@ test.describe('Remove From Cart Tests', () => {
     });
 
     await test.step('Navigate to cart page', async () => {
-      const cartButton = page.getByTestId('shopping-cart-link');
-      await cartButton.click();
-    })
+      await cartPage.openCart();
+    });
   });
 
-  test('Verify user can remove a single product from cart', async ({ page }) => {
+  test('Verify user can remove a single product from cart', async ({ cartPage }) => {
     await test.step('Remove product "Sauce Labs Backpack"', async () => {
-      const removeButton = page.getByTestId('remove-sauce-labs-backpack');
-      await removeButton.click();
+      await cartPage.removeItemByTestId('remove-sauce-labs-backpack');
     });
 
     await test.step('Verify product is removed from cart', async () => {
-      const cartProduct = page.getByTestId('cart-product-sauce-labs-backpack');
-      await expect(cartProduct).toBeHidden();
+      const removedItem = await cartPage.getCartItemByTestId('cart-product-sauce-labs-backpack');
+      await expect(removedItem).toBeHidden();
     });
   });
 
-  test('Verify user can remove all products from cart', async ({ page }) => {
+  test('Verify user can remove all products from cart', async ({ cartPage }) => {
     await test.step('Remove all products from cart', async () => {
-      const removeButtons = page.getByRole('button', { name: 'Remove' });
-
-      while (await removeButtons.count() > 0) {
-        await removeButtons.nth(0).click();
-      }
+      await cartPage.removeAllItems();
     });
 
     await test.step('Verify cart is empty', async () => {
-      const cartItems = page.locator('.cart_item');
-      await expect(cartItems).toHaveCount(0);
+      await expect(cartPage.cartItems).toHaveCount(0);
     });
   });
-})
+});

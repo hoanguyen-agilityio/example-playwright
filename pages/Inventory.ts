@@ -11,6 +11,14 @@ export class InventoryPage {
     this.sortSelect = page.getByTestId('product-sort-container');
   }
 
+  getAddToCartButton(itemTestId: string): Locator {
+    return this.page.getByTestId(`add-to-cart-${itemTestId}`);
+  }
+
+  getRemoveButton(): Locator {
+    return this.page.getByRole('button', { name: 'Remove' });
+  }
+
   async getAllItemPrices() {
     const priceElements = await this.page.locator('[data-test="inventory-item-price"]');
     const count = await priceElements.count();
@@ -38,7 +46,7 @@ export class InventoryPage {
   async sortByPriceHighToLow() {
     await this.sortSelect.selectOption('hilo');
   };
- 
+
   async getAllItemNames() {
     const nameElements = await this.page.locator('[data-test="inventory-item-name"]');
     const cont = await nameElements.count();
@@ -51,6 +59,6 @@ export class InventoryPage {
       }
     }
 
-    return names; 
+    return names;
   }
 }
