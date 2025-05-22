@@ -35,6 +35,10 @@ export class InventoryPage {
     await this.sortSelect.selectOption('za');
   };
 
+  async sortByPriceHighToLow() {
+    await this.sortSelect.selectOption('hilo');
+  };
+ 
   async getAllItemNames() {
     const nameElements = await this.page.locator('[data-test="inventory-item-name"]');
     const cont = await nameElements.count();
