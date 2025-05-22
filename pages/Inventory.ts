@@ -69,4 +69,11 @@ export class InventoryPage {
     await expect(productCard).toBeVisible();
     await productTitle.click();
   }
+
+  async goToProductDetailByImage(productImage: string) {
+    const productImg = this.page.getByTestId(productImage);
+
+    await expect(productImg).toBeVisible();
+    await productImg.click();
+  }
 }
