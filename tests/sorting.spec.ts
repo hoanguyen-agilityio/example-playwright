@@ -20,4 +20,17 @@ test.describe('Sorting Tests', () => {
 
     expect(prices).toEqual(sorted);
   });
-})
+
+  test('Verify user can sort products by name (Z to A)', async ({ page }) => {
+    const inventory = new InventoryPage(page);
+
+    await page.goto(PRODUCTS_URL);
+    await inventory.sortByNameZToA();
+    await expect(page).toHaveURL(INVENTORY_URL);
+
+    const names = await inventory.getAllItemNames();
+    const sorted = [...names].sort((a, b) => b.localeCompare(a));
+    
+    expect(names).toEqual(sorted);
+  });
+});

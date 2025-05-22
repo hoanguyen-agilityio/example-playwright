@@ -25,9 +25,28 @@ export class InventoryPage {
     }
 
     return prices;
-  }
+  };
 
   async sortByPriceLowToHigh() {
     await this.sortSelect.selectOption('lohi');
+  };
+
+  async sortByNameZToA() {
+    await this.sortSelect.selectOption('za');
+  };
+
+  async getAllItemNames() {
+    const nameElements = await this.page.locator('[data-test="inventory-item-name"]');
+    const cont = await nameElements.count();
+    const names: string[] = [];
+
+    for (let i = 0; i < cont; i++) {
+      const nameText = await nameElements.nth(i).textContent();
+      if (nameText) {
+        names.push(nameText);
+      }
+    }
+
+    return names; 
   }
 }
