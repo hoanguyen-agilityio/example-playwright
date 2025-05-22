@@ -1,5 +1,5 @@
 import { test, expect } from "@/fixtures";
-import { CART_URL, DETAILS_PAGE_URL, HEADINGS, PRODUCTS, PRODUCTS_URL } from "@/constants";
+import { CART_URL, DETAILS_PAGE_URL, HEADINGS, INVENTORY_URL, PRODUCTS, PRODUCTS_URL } from "@/constants";
 
 test.describe('Navigation Detail Page', () => {
   test.beforeEach(async ({ page }) => {
@@ -43,6 +43,22 @@ test.describe('Navigation Detail Page', () => {
       await expect(page).toHaveURL(CART_URL);
       await expect(cartPage.title).toBeVisible();
       await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
+    });
+  });
+
+  test('Verify user can return to products from details', async ({ page, inventoryPage, detailPage }) => {
+    await test.step('Click on product title by name', async () => {
+      await inventoryPage.goToProductDetailByName(PRODUCTS.BACKPACK);
+    });
+
+    await test.step('Click the "Back to product" button to return to the product page', async () => {
+      await detailPage.clickBackToProductsButton();
+    });
+
+    await test.step('Verify inventory page is displayed', async () => {
+      await expect(page).toHaveURL(INVENTORY_URL  );
+      await expect(inventoryPage.title).toBeVisible();
+      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   })
 });

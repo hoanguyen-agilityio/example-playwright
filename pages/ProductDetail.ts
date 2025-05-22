@@ -6,6 +6,7 @@ export class DetailPage {
   readonly addToCartButton: Locator;
   readonly removeButton: Locator;
   readonly productImage: Locator;
+  readonly backToProductsButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,5 +14,10 @@ export class DetailPage {
     this.addToCartButton = page.getByRole('button', { name: 'Add to cart' });
     this.removeButton = page.getByRole('button', { name: 'Remove' });
     this.productImage = page.locator('.inventory_details_img');
+    this.backToProductsButton = page.getByRole('button', { name: 'Back to products' });
+  }
+
+  async clickBackToProductsButton() {
+    await this.backToProductsButton.click();
   }
 }
