@@ -56,7 +56,23 @@ test.describe('Navigation Detail Page', () => {
     });
 
     await test.step('Verify inventory page is displayed', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL  );
+      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(inventoryPage.title).toBeVisible();
+      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
+    });
+  });
+
+  test('Verify user can navigate to all items from details', async ({ page, inventoryPage, cartPage }) => {
+    await test.step('Click on product title by name', async () => {
+      await inventoryPage.goToProductDetailByName(PRODUCTS.BACKPACK);
+    });
+
+    await test.step('Navigate back to all items', async () => {
+      await cartPage.goToAllItems();
+    });
+
+    await test.step('Verify inventory page is displayed', async () => {
+      await expect(page).toHaveURL(INVENTORY_URL);
       await expect(inventoryPage.title).toBeVisible();
       await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
