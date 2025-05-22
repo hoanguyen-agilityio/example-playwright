@@ -6,7 +6,8 @@ const USER = {
   INVALID_PASSWORD: 'invalid_password',
   FIRST_NAME: 'Hoa',
   LAST_NAME: 'Nguyen',
-  POSTAL_CODE: '12345'
+  POSTAL_CODE: '12345',
+  EMPTY: ''
 }
 
 export { USER }

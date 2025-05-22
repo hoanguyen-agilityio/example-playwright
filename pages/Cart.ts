@@ -7,6 +7,8 @@ export class CartPage {
   readonly title: Locator; 
   readonly menuButton: Locator;
   readonly allItemsLink: Locator;
+  readonly cartItems: Locator;
+  readonly removeButtons: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,6 +17,8 @@ export class CartPage {
     this.title = page.getByTestId('title');
     this.menuButton = page.getByRole('button', { name: 'Open Menu' });
     this.allItemsLink = page.getByTestId('inventory-sidebar-link');
+    this.cartItems = page.locator('.cart_item');
+    this.removeButtons = page.getByRole('button', { name: 'Remove' });
   }
 
   async openCart() {
@@ -24,5 +28,20 @@ export class CartPage {
   async goToAllItems() {
     await this.menuButton.click();
     await this.allItemsLink.click();
+  }
+
+  async removeItemByTestId(testId: string) {
+    const removeButton = this.page.getByTestId(testId);
+    await removeButton.click();
+  }
+
+  async getCartItemByTestId(testId: string): Promise<Locator> {
+    return this.page.getByTestId(testId);
+  }
+
+  async removeAllItems() {
+    while (await this.removeButtons.count() > 0) {
+      await this.removeButtons.nth(0).click();
+    }
   }
 }
