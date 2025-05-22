@@ -26,7 +26,7 @@ test.describe('Remove From Cart Tests', () => {
   });
 
   test('Verify user can remove a single product from cart', async ({ page }) => {
-    await test.step('remove product "Sauce Labs Backpack"', async () => {
+    await test.step('Remove product "Sauce Labs Backpack"', async () => {
       const removeButton = page.getByTestId('remove-sauce-labs-backpack');
       await removeButton.click();
     });
@@ -35,5 +35,20 @@ test.describe('Remove From Cart Tests', () => {
       const cartProduct = page.getByTestId('cart-product-sauce-labs-backpack');
       await expect(cartProduct).toBeHidden();
     });
-  })
+  });
+
+  test('Verify user can remove all products from cart', async ({ page }) => {
+    await test.step('Remove all products from cart', async () => {
+      const removeButtons = page.getByRole('button', { name: 'Remove' });
+
+      while (await removeButtons.count() > 0) {
+        await removeButtons.nth(0).click();
+      }
+    });
+
+    await test.step('Verify cart is empty', async () => {
+      const cartItems = page.locator('.cart_item');
+      await expect(cartItems).toHaveCount(0);
+    });
+  });
 })
