@@ -11,8 +11,8 @@ export class InventoryPage {
     this.sortSelect = page.getByTestId('product-sort-container');
   }
 
-  getAddToCartButton(itemTestId: string): Locator {
-    return this.page.getByTestId(`add-to-cart-${itemTestId}`);
+  getAddToCartButton(itemTest: string): Locator {
+    return this.page.getByTestId(itemTest);
   }
 
   getRemoveButton(): Locator {

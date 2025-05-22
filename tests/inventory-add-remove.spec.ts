@@ -8,7 +8,7 @@ test.describe('Cart tests', () => {
     });
 
     await test.step('Click on "Add to cart" button', async () => {
-      await inventoryPage.getAddToCartButton('sauce-labs-backpack').click();
+      await inventoryPage.getAddToCartButton('add-to-cart-sauce-labs-backpack').click();
     });
   })
 
@@ -24,7 +24,7 @@ test.describe('Cart tests', () => {
     });
 
     await test.step('Verify the "Add to cart" button is visible', async () => {
-      await expect(inventoryPage.getAddToCartButton('sauce-labs-backpack')).toBeVisible();
+      await expect(inventoryPage.getAddToCartButton('add-to-cart-sauce-labs-backpack')).toBeVisible();
     });
   });
 });

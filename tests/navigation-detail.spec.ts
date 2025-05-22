@@ -76,5 +76,25 @@ test.describe('Navigation Detail Page', () => {
       await expect(inventoryPage.title).toBeVisible();
       await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
+  });
+
+  test('Verify user can access cart with items from details', async ({ page, inventoryPage, cartPage }) => {
+    await test.step('Click on product title by name', async () => {
+      await inventoryPage.goToProductDetailByName(PRODUCTS.BACKPACK);
+    });
+
+    await test.step('Click on "Add to cart" button', async () => {
+      await inventoryPage.getAddToCartButton('add-to-cart').click();
+    });
+
+    await test.step('Open cart', async () => {
+      await cartPage.openCart();
+    });
+
+    await test.step('Verify cart page is displayed', async () => {
+      await expect(page).toHaveURL(CART_URL);
+      await expect(cartPage.title).toBeVisible();
+      await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
+    });
   })
 });
