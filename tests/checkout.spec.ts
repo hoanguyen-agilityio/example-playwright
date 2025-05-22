@@ -65,4 +65,17 @@ test.describe('Checkout Tests', () => {
       await expect(checkout.errorMessage).toHaveText(ERROR_MESSAGES.FIRST_NAME_REQUIRED);
     });
   });
+
+  test('Verify user cannot checkout with only first and last name', async ({ page }) => {
+    await test.step('Try to submit incomplete form', async () => {
+      await checkout.fillCheckoutForm(USER.FIRST_NAME, USER.LAST_NAME, USER.EMPTY);
+      await checkout.continueButton.click();
+    });
+
+    await test.step('Verify checkout failure', async () => {
+      await expect(page).toHaveURL(CHECKOUT_STEP_ONE);
+      await expect(checkout.errorMessage).toBeVisible();
+      await expect(checkout.errorMessage).toHaveText(ERROR_MESSAGES.POSTAL_CODE);
+    });
+  })
 });
