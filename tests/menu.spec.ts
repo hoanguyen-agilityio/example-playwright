@@ -10,21 +10,21 @@ test.describe('Menu Tests', () => {
       await page.goto(PRODUCTS_URL);
     });
   })
-  test('Verify user can close hamburger menu from details', async ({ inventoryPage, sidebarMenu }) => {
+  test('Verify user can close hamburger menu from details', async ({ inventoryPage, sidebarMenuPage }) => {
     await test.step('Click on product title by name', async () => {
       await inventoryPage.goToProductDetailByName(PRODUCTS.BACKPACK);
     });
 
     await test.step('Verify hamburger menu is closed', async () => {
-      await sidebarMenu.closeMenu();
-      await expect(sidebarMenu.menu).toBeHidden();
+      await sidebarMenuPage.closeMenu();
+      await expect(sidebarMenuPage.menu).toBeHidden();
     });
   });
 
-  test('Verify user can close hamburger menu from cart', async ({ sidebarMenu }) => {
+  test('Verify user can close hamburger menu from cart', async ({ sidebarMenuPage }) => {
     await test.step('Verify hamburger menu is closed', async () => {
-      await sidebarMenu.closeMenu();
-      await expect(sidebarMenu.menu).toBeHidden();
+      await sidebarMenuPage.closeMenu();
+      await expect(sidebarMenuPage.menu).toBeHidden();
     });
   })
 })

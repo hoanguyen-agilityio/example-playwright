@@ -1,12 +1,12 @@
 import { test as base, expect } from '@playwright/test';
-import { CartPage, CheckoutPage, DetailPage, InventoryPage, LoginPage, SidebarMenu } from "@/pages"
+import { CartPage, CheckoutPage, DetailPage, InventoryPage, LoginPage, SidebarMenuPage } from "@/pages"
 
 type PageFixtures = {
   loginPage: LoginPage;
   inventoryPage: InventoryPage;
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
-  sidebarMenu: SidebarMenu;
+  sidebarMenuPage: SidebarMenuPage;
   detailPage: DetailPage;
 };
 
@@ -36,10 +36,10 @@ const test = base.extend<PageFixtures>({
     await use(checkoutPage);
   },
 
-  sidebarMenu: async ({ page }, use) => {
-    const sidebarMenu = new SidebarMenu(page);
+  sidebarMenuPage: async ({ page }, use) => {
+    const sidebarMenuPage = new SidebarMenuPage(page);
 
-    await use(sidebarMenu);
+    await use(sidebarMenuPage);
   },
 
   detailPage: async ({ page }, use) => {

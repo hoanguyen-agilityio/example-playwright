@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 
-export class SidebarMenu {
+export class SidebarMenuPage {
   readonly page: Page;
   readonly menuButton: Locator;
   readonly logoutLink: Locator;
