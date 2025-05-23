@@ -1,4 +1,7 @@
+// Fixtures
 import { test, expect } from "@/fixtures";
+
+// Constants
 import { PRODUCTS_URL } from "@/constants";
 
 test.describe('Cart functionality on inventory page', () => {

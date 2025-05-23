@@ -2,7 +2,13 @@
 import { test, expect } from "@/fixtures";
 
 // Constants
-import { CART_URL, HEADINGS, INVENTORY_URL, PRODUCTS_URL, USER } from "@/constants";
+import { 
+  CART_URL, 
+  HEADINGS, 
+  INVENTORY_URL, 
+  PRODUCTS_URL, 
+  USER 
+} from "@/constants";
 
 test.describe('Cart and Navigation Tests', () => {
   test.beforeEach(async ({ page, cartPage }) => {

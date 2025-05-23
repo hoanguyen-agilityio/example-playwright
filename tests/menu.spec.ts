@@ -1,5 +1,8 @@
-import { PRODUCTS, PRODUCTS_URL } from "@/constants";
+// Fixtures
 import { expect, test } from "@/fixtures";
+
+// Constants
+import { PRODUCTS, PRODUCTS_URL } from "@/constants";
 
 test.describe('Menu Tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -17,4 +20,11 @@ test.describe('Menu Tests', () => {
       await expect(sidebarMenu.menu).toBeHidden();
     });
   });
+
+  test('Verify user can close hamburger menu from cart', async ({ sidebarMenu }) => {
+    await test.step('Verify hamburger menu is closed', async () => {
+      await sidebarMenu.closeMenu();
+      await expect(sidebarMenu.menu).toBeHidden();
+    });
+  })
 })

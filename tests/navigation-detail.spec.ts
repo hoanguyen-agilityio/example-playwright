@@ -1,5 +1,15 @@
+// Fixtures
 import { test, expect } from "@/fixtures";
-import { CART_URL, DETAILS_PAGE_URL, HEADINGS, INVENTORY_URL, PRODUCTS, PRODUCTS_URL } from "@/constants";
+
+// Constants
+import { 
+  CART_URL, 
+  DETAILS_PAGE_URL, 
+  HEADINGS, 
+  INVENTORY_URL, 
+  PRODUCTS, 
+  PRODUCTS_URL 
+} from "@/constants";
 
 test.describe('Navigation Detail Page', () => {
   test.beforeEach(async ({ page }) => {

@@ -1,4 +1,4 @@
-// Libs
+// Fixtures
 import { test, expect } from "@/fixtures";
 
 // Constants

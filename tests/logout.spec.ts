@@ -1,8 +1,12 @@
-// Libs
+// Fixtures
 import { test, expect } from "@/fixtures";
 
 // Constants
-import { BASE_URL, HEADINGS, PRODUCTS_URL } from "@/constants";
+import { 
+  BASE_URL, 
+  HEADINGS, 
+  PRODUCTS_URL 
+} from "@/constants";
 
 test.describe('Logout Tests', () => {
   test('Verify user is able to logout successfully', async ({ page, sidebarMenu }) => {

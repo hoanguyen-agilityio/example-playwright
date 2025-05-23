@@ -1,5 +1,8 @@
-import { PRODUCTS_URL } from "@/constants";
+// Fixtures
 import { test, expect } from "@/fixtures";
+
+// Constants
+import { PRODUCTS_URL } from "@/constants";
 
 test.describe('Remove From Cart Tests', () => {
   test.beforeEach(async ({ page, cartPage }) => {

@@ -1,4 +1,7 @@
+// Fixtures
 import { expect, test } from "@/fixtures";
+
+// Constants
 import { PRODUCTS, PRODUCTS_URL } from "@/constants";
 
 test.describe('Cart functionality on detail page', () => {

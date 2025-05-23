@@ -1,5 +1,13 @@
+// Fixtures
 import { test, expect } from "@/fixtures";
-import { ERROR_MESSAGES, HEADINGS, INVENTORY_URL, USER } from "@/constants";
+
+// Constants
+import { 
+  ERROR_MESSAGES, 
+  HEADINGS, 
+  INVENTORY_URL, 
+  USER 
+} from "@/constants";
 
 test.use({
   storageState: {
