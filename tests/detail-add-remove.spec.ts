@@ -1,5 +1,5 @@
-import { PRODUCTS, PRODUCTS_URL } from "@/constants";
 import { expect, test } from "@/fixtures";
+import { PRODUCTS, PRODUCTS_URL } from "@/constants";
 
 test.describe('Cart functionality on detail page', () => {
   test.beforeEach(async ({ page, inventoryPage }) => {
@@ -19,6 +19,16 @@ test.describe('Cart functionality on detail page', () => {
   test('Verify user can add a product to cart from details', async ({ inventoryPage }) => {
     await test.step('Verify the "Remove" button is visible', async () => {
       await expect(inventoryPage.getRemoveButton()).toBeVisible();
+    });
+  });
+
+  test('Verify user can return to products from overview page', async ({ inventoryPage }) => {
+    await test.step('Click on "Remove" button', async () => {
+      await inventoryPage.getRemoveButton().click();
+    });
+
+    await test.step('Verify the "Add to cart" button is visible', async () => {
+      await expect(inventoryPage.getAddToCartButton('add-to-cart')).toBeVisible();
     });
   })
 })
