@@ -22,7 +22,7 @@ test.describe('Cart functionality on detail page', () => {
     });
   });
 
-  test('Verify user can return to products from overview page', async ({ inventoryPage }) => {
+  test('Verify user can remove a product from cart in details', async ({ inventoryPage }) => {
     await test.step('Click on "Remove" button', async () => {
       await inventoryPage.getRemoveButton().click();
     });
