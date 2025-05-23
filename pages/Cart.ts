@@ -9,6 +9,7 @@ export class CartPage {
   readonly allItemsLink: Locator;
   readonly cartItems: Locator;
   readonly removeButtons: Locator;
+  readonly continueShoppingButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,6 +20,7 @@ export class CartPage {
     this.allItemsLink = page.getByTestId('inventory-sidebar-link');
     this.cartItems = page.locator('.cart_item');
     this.removeButtons = page.getByRole('button', { name: 'Remove' });
+    this.continueShoppingButton = page.getByRole('button', { name: 'Continue Shopping' });
   }
 
   async openCart() {
@@ -43,5 +45,9 @@ export class CartPage {
     while (await this.removeButtons.count() > 0) {
       await this.removeButtons.nth(0).click();
     }
+  }
+
+  async clickContinueShopping() {
+    await this.continueShoppingButton.click();
   }
 }

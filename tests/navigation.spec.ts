@@ -5,11 +5,12 @@ import { test, expect } from "@/fixtures";
 import { CART_URL, HEADINGS, INVENTORY_URL, PRODUCTS_URL } from "@/constants";
 
 test.describe('Cart and Navigation Tests', () => {
-  test('Verify user is able to access cart page', async ({ page, cartPage }) => {
+  test.beforeEach(async ({ page }) => {
     await test.step('Navigate to products page', async () => {
       await page.goto(PRODUCTS_URL);
     });
-
+  })
+  test('Verify user is able to access cart page', async ({ page, cartPage }) => {
     await test.step('Open cart', async () => {
       await cartPage.openCart();
     });
@@ -21,11 +22,7 @@ test.describe('Cart and Navigation Tests', () => {
     });
   });
 
-  test('Verify user can navigate from cart to all items', async ({ page, cartPage, inventoryPage }) => {    
-    await test.step('Navigate to products page', async () => {
-      await page.goto(PRODUCTS_URL);
-    });
-
+  test('Verify user can navigate from cart to all items', async ({ page, cartPage, inventoryPage }) => {
     await test.step('Open cart', async () => {
       await cartPage.openCart();
     });
@@ -40,4 +37,20 @@ test.describe('Cart and Navigation Tests', () => {
       await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   });
-})
+
+  test('Verify user can return to products from cart', async ({ page, inventoryPage, cartPage }) => {
+    await test.step('Open cart', async () => {
+      await cartPage.openCart();
+    });
+
+    await test.step('Click the "Continue Shopping" button to return to the product page', async () => {
+      await cartPage.clickContinueShopping();
+    });
+
+    await test.step('Verify products page is displayed', async () => {
+      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(inventoryPage.title).toBeVisible();
+      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
+    });
+  });
+});
