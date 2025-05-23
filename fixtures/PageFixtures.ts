@@ -1,7 +1,7 @@
 import { test as base, expect } from '@playwright/test';
 import { CartPage, CheckoutPage, DetailPage, InventoryPage, LoginPage, SidebarMenu } from "@/pages"
 
-type PageObjects = {
+type PageFixtures = {
   loginPage: LoginPage;
   inventoryPage: InventoryPage;
   cartPage: CartPage;
@@ -10,7 +10,7 @@ type PageObjects = {
   detailPage: DetailPage;
 };
 
-const test = base.extend<PageObjects>({
+const test = base.extend<PageFixtures>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     
