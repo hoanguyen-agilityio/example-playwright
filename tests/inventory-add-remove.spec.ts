@@ -1,7 +1,7 @@
 import { test, expect } from "@/fixtures";
 import { PRODUCTS_URL } from "@/constants";
 
-test.describe('Cart tests', () => {
+test.describe('Cart functionality on inventory page', () => {
   test.beforeEach(async ({ page, inventoryPage }) => {
     await test.step('Navigate to product page', async () => {
       await page.goto(PRODUCTS_URL);
