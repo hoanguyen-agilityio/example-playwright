@@ -10,6 +10,7 @@ export class CartPage {
   readonly cartItems: Locator;
   readonly removeButtons: Locator;
   readonly continueShoppingButton: Locator;
+  readonly cancelButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,6 +22,7 @@ export class CartPage {
     this.cartItems = page.locator('.cart_item');
     this.removeButtons = page.getByRole('button', { name: 'Remove' });
     this.continueShoppingButton = page.getByRole('button', { name: 'Continue Shopping' });
+    this.cancelButton = page.getByRole('button', { name: 'Cancel' });
   }
 
   async openCart() {
@@ -49,5 +51,13 @@ export class CartPage {
 
   async clickContinueShopping() {
     await this.continueShoppingButton.click();
+  }
+
+  async clickCheckoutButton() {
+    await this.checkoutButton.click();
+  }
+
+  async clickCancelButton() {
+    await this.cancelButton.click();
   }
 }

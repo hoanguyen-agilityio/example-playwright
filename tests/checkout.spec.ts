@@ -26,9 +26,12 @@ test.describe('Checkout Tests', () => {
       await addToCartButton.click();
     });
 
-    await test.step('Proceed to checkout', async () => {
+    await test.step('Open cart', async () => {
       await cartPage.openCart();
-      await cartPage.checkoutButton.click();
+    });
+
+    await test.step('Proceed to checkout', async () => {
+      await cartPage.clickCheckoutButton();
     });
   });
 
