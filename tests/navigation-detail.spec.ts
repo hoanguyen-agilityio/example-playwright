@@ -96,5 +96,25 @@ test.describe('Navigation Detail Page', () => {
       await expect(cartPage.title).toBeVisible();
       await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
     });
+  });
+
+  test('Verify user can navigate to product details from cart', async ({ page, inventoryPage, cartPage, detailPage }) => {
+    await test.step('Click on "Add to cart" button', async () => {
+      await inventoryPage.getAddToCartButton('add-to-cart-sauce-labs-backpack').click();
+    });
+
+    await test.step('Open cart', async () => {
+      await cartPage.openCart();
+    });
+
+    await test.step('Click on product title by name', async () => {
+      const productName = await page.getByTestId('inventory-item-name');
+      await productName.click();
+    });
+
+    await test.step('Verify user is on product detail page', async () => {
+      await expect(page).toHaveURL(DETAILS_PAGE_URL);
+      await expect(detailPage.productName).toHaveText(PRODUCTS.BACKPACK);
+    });
   })
 });
