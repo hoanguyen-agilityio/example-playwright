@@ -27,13 +27,15 @@ export class CheckoutPage {
     await this.postalCodeInput.fill(zip);
   }
 
-  async continueToFinish() {
+  async clickContinueButton() {
     await this.continueButton.click();
-    await this.finishButton.click();
+  }
+
+  async clickFinishButton() {
+     await this.finishButton.click();
   }
 
   async completeCheckout(first: string, last: string, zip: string) {
     await this.fillCheckoutForm(first, last, zip);
-    await this.continueToFinish();
   }
 }

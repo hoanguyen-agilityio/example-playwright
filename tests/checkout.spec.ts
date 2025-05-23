@@ -38,6 +38,8 @@ test.describe('Checkout Tests', () => {
   test('Verify checkout success after adding item', async ({ page, checkoutPage }) => {
     await test.step('Complete the checkout form', async () => {
       await checkoutPage.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
+      await checkoutPage.clickContinueButton();
+      await checkoutPage.clickFinishButton();
     });
 
     await test.step('Verify checkout completion', async () => {

@@ -2,7 +2,7 @@
 import { test, expect } from "@/fixtures";
 
 // Constants
-import { CART_URL, HEADINGS, INVENTORY_URL, PRODUCTS_URL } from "@/constants";
+import { CART_URL, HEADINGS, INVENTORY_URL, PRODUCTS_URL, USER } from "@/constants";
 
 test.describe('Cart and Navigation Tests', () => {
   test.beforeEach(async ({ page, cartPage }) => {
@@ -61,4 +61,25 @@ test.describe('Cart and Navigation Tests', () => {
       await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
     });
   });
+
+  test('Verify user can return to products from overview page', async ({ page, cartPage, checkoutPage, inventoryPage }) => {
+    await test.step('Navigate to checkout form', async () => {
+      await cartPage.clickCheckoutButton();
+    });
+
+    await test.step('Complete the checkout form', async () => {
+      await checkoutPage.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
+      await checkoutPage.clickContinueButton();
+    });
+
+    await test.step('Click the "Cancel" button to return to cart', async () => {
+      await cartPage.clickCancelButton();
+    });
+
+    await test.step('Verify products page is displayed', async () => {
+      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(inventoryPage.title).toBeVisible();
+      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
+    });
+  })
 });
