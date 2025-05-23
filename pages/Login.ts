@@ -26,7 +26,7 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
-  async expectError(message: string) {
+  async verifyMsgErrorVisible(message: string) {
     await expect(this.errorMessage).toBeVisible();
     await expect(this.errorMessage).toHaveText(message);
   }
