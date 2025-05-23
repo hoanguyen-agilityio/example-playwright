@@ -6,13 +6,15 @@ export class SidebarMenuPage {
   readonly logoutLink: Locator;
   readonly closeMenuButton: Locator;
   readonly menu: Locator;
+  readonly allItemsLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.menuButton = page.getByRole('button', { name: 'Open Menu' });
     this.logoutLink = page.getByTestId('logout-sidebar-link');
     this.closeMenuButton = page.getByRole('button', { name: 'Close Menu' });
-    this.menu = page.locator('.bm-menu-wrap')
+    this.menu = page.locator('.bm-menu-wrap');
+    this.allItemsLink = page.getByTestId('inventory-sidebar-link');
   }
 
   async logout() {
@@ -23,5 +25,10 @@ export class SidebarMenuPage {
   async closeMenu() {
     await this.menuButton.click();
     await this.closeMenuButton.click();
+  };
+
+  async goToAllItems() {
+    await this.menuButton.click();
+    await this.allItemsLink.click();
   };
 }

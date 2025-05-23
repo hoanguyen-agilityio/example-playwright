@@ -28,9 +28,9 @@ test.describe('Cart and Navigation Tests', () => {
     });
   });
 
-  test('Verify user can navigate from cart to all items', async ({ page, cartPage, inventoryPage }) => {
+  test('Verify user can navigate from cart to all items', async ({ page, inventoryPage, sidebarMenuPage }) => {
     await test.step('Navigate back to all items', async () => {
-      await cartPage.goToAllItems();
+      await sidebarMenuPage.goToAllItems();
     });
 
     await test.step('Verify inventory page is displayed', async () => {

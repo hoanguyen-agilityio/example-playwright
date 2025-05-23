@@ -72,13 +72,13 @@ test.describe('Navigation Detail Page', () => {
     });
   });
 
-  test('Verify user can navigate to all items from details', async ({ page, inventoryPage, cartPage }) => {
+  test('Verify user can navigate to all items from details', async ({ page, inventoryPage, sidebarMenuPage }) => {
     await test.step('Click on product title by name', async () => {
       await inventoryPage.goToProductDetailByName(PRODUCTS.BACKPACK);
     });
 
     await test.step('Navigate back to all items', async () => {
-      await cartPage.goToAllItems();
+      await sidebarMenuPage.goToAllItems();
     });
 
     await test.step('Verify inventory page is displayed', async () => {
