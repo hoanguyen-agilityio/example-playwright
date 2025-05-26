@@ -20,6 +20,11 @@ test.describe('Cart functionality on detail page', () => {
   });
 
   test('Verify user can add a product to cart from details', async ({ inventoryPage }) => {
+    await test.step('Verify the product is added to the cart', async () => {
+      const cartBadge = inventoryPage.getCartBadge(); 
+      await expect(cartBadge).toHaveText('1'); 
+    });
+
     await test.step('Verify the "Remove" button is visible', async () => {
       await expect(inventoryPage.getRemoveButton()).toBeVisible();
     });

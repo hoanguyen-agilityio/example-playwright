@@ -19,6 +19,10 @@ export class InventoryPage {
     return this.page.getByRole('button', { name: 'Remove' });
   }
 
+  getCartBadge(): Locator {
+    return this.page.locator('[data-test="shopping-cart-badge"]');
+  }
+
   async getAllItemPrices() {
     const priceElements = await this.page.locator('[data-test="inventory-item-price"]');
     const count = await priceElements.count();
