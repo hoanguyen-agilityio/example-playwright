@@ -21,10 +21,10 @@ export class CheckoutPage {
     this.errorMessage = page.getByTestId('error');
   }
 
-  async fillCheckoutForm(first: string, last: string, zip: string) {
-    await this.firstNameInput.fill(first);
-    await this.lastNameInput.fill(last);
-    await this.postalCodeInput.fill(zip);
+  async fillCheckoutForm(firstName: string, lastName: string, zipCode: string) {
+    await this.firstNameInput.fill(firstName);
+    await this.lastNameInput.fill(lastName);
+    await this.postalCodeInput.fill(zipCode);
   }
 
   async clickContinueButton() {
@@ -35,7 +35,7 @@ export class CheckoutPage {
      await this.finishButton.click();
   }
 
-  async completeCheckout(first: string, last: string, zip: string) {
-    await this.fillCheckoutForm(first, last, zip);
+  async completeCheckout(firstName: string, lastName: string, zipCode: string) {
+    await this.fillCheckoutForm(firstName, lastName, zipCode);
   }
 }
