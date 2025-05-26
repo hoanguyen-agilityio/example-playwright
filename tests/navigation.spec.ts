@@ -74,7 +74,7 @@ test.describe('Cart and Navigation Tests', () => {
     });
 
     await test.step('Complete the checkout form', async () => {
-      await checkoutPage.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
+      await checkoutPage.completeCheckout(USER.INFO_USER.FIRST_NAME, USER.INFO_USER.LAST_NAME, USER.INFO_USER.POSTAL_CODE);
       await checkoutPage.clickContinueButton();
     });
 

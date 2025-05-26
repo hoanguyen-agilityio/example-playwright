@@ -33,7 +33,7 @@ test.describe('Checkout Tests', () => {
 
   test('Verify checkout success after adding item', async ({ page, checkoutPage }) => {
     await test.step('Complete the checkout form', async () => {
-      await checkoutPage.completeCheckout(USER.FIRST_NAME, USER.LAST_NAME, USER.POSTAL_CODE);
+      await checkoutPage.completeCheckout(USER.INFO_USER.FIRST_NAME, USER.INFO_USER.LAST_NAME, USER.INFO_USER.POSTAL_CODE);
       await checkoutPage.clickContinueButton();
       await checkoutPage.clickFinishButton();
     });
@@ -60,7 +60,7 @@ test.describe('Checkout Tests', () => {
 
   test('Verify user cannot checkout with only first and last name', async ({ page, checkoutPage }) => {
     await test.step('Try to submit incomplete form', async () => {
-      await checkoutPage.fillCheckoutForm(USER.FIRST_NAME, USER.LAST_NAME, USER.EMPTY);
+      await checkoutPage.fillCheckoutForm(USER.INFO_USER.FIRST_NAME, USER.INFO_USER.LAST_NAME, USER.EMPTY);
       await checkoutPage.continueButton.click();
     });
 

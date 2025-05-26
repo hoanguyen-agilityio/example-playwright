@@ -18,7 +18,7 @@ setup('authenticate', async ({ page }) => {
   });
 
   await setup.step('Login', async () => {
-    await login.login(USER.STANDARD_USER, USER.PASSWORD)
+    await login.login(USER.STANDARD_USER.USERNAME, USER.STANDARD_USER.PASSWORD)
   })
 
   await setup.step('Wait for product page to load', async () => {
