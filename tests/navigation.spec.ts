@@ -3,8 +3,7 @@ import { test, expect } from "@/fixtures";
 
 // Constants
 import { 
-  CART_URL, 
-  INVENTORY_URL, 
+  PATH, 
   PRODUCTS_URL, 
   USER 
 } from "@/constants";
@@ -15,13 +14,13 @@ test.describe('Cart and Navigation Tests', () => {
       await page.goto(PRODUCTS_URL);
     });
 
-    await test.step('Open cart', async () => {
+    await test.step('Navigate to cart page', async () => {
       await cartPage.openCart();
     });
   })
   test('Verify user is able to access cart page', async ({ page, cartPage }) => {
     await test.step('Verify cart page is displayed', async () => {
-      await expect(page).toHaveURL(CART_URL);
+      await expect(page).toHaveURL(PATH.CART);
       await expect(cartPage.title).toBeVisible();
     });
   });
@@ -32,7 +31,7 @@ test.describe('Cart and Navigation Tests', () => {
     });
 
     await test.step('Verify inventory page is displayed', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
       await expect(inventoryPage.title).toBeVisible();
     });
   });
@@ -43,7 +42,7 @@ test.describe('Cart and Navigation Tests', () => {
     });
 
     await test.step('Verify products page is displayed', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
       await expect(inventoryPage.title).toBeVisible();
     });
   });
@@ -58,7 +57,7 @@ test.describe('Cart and Navigation Tests', () => {
     });
 
     await test.step('Verify cart page is displayed', async () => {
-      await expect(page).toHaveURL(CART_URL);
+      await expect(page).toHaveURL(PATH.CART);
       await expect(cartPage.title).toBeVisible();
     });
   });
@@ -78,7 +77,7 @@ test.describe('Cart and Navigation Tests', () => {
     });
 
     await test.step('Verify products page is displayed', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
       await expect(inventoryPage.title).toBeVisible();
     });
   })

@@ -5,7 +5,7 @@ import { test, expect } from "@/fixtures";
 import { 
   ERROR_MESSAGES, 
   HEADINGS, 
-  INVENTORY_URL, 
+  PATH, 
   USER 
 } from "@/constants";
 
@@ -23,7 +23,7 @@ test.describe('Login Tests', () => {
 
   test('Verify user is able to login successfully with standard user', async ({ page, loginPage, inventoryPage }) => {
     await loginPage.login(USER.STANDARD_USER.USERNAME, USER.STANDARD_USER.PASSWORD);
-    await expect(page).toHaveURL(INVENTORY_URL);
+    await expect(page).toHaveURL(PATH.INVENTORY);
     await expect(inventoryPage.title).toBeVisible();
   });
 

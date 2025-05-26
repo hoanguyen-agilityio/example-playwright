@@ -2,7 +2,7 @@
 import { test, expect } from "@/fixtures";
 
 // Constants
-import { INVENTORY_URL, PRODUCTS_URL } from "@/constants";
+import { PATH, PRODUCTS_URL } from "@/constants";
 
 test.describe('Sorting Tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -17,7 +17,7 @@ test.describe('Sorting Tests', () => {
     });
 
     await test.step('Verify URL is correct after sorting', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
     });
 
     await test.step('Get all item prices and verify ascending sort', async () => {
@@ -34,7 +34,7 @@ test.describe('Sorting Tests', () => {
     });
 
     await test.step('Verify URL is correct after sorting', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
     });
 
     await test.step('Get all item names and verify Z to A sort', async () => {
@@ -51,7 +51,7 @@ test.describe('Sorting Tests', () => {
     });
 
     await test.step('Verify URL is correct after sorting', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
     });
 
     await test.step('Get all item prices and verify high to low sort', async () => {

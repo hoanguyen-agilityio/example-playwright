@@ -3,9 +3,7 @@ import { test, expect } from "@/fixtures";
 
 // Constants
 import { 
-  CART_URL, 
-  DETAILS_PAGE_URL, 
-  INVENTORY_URL, 
+  PATH,  
   PRODUCTS, 
   PRODUCTS_URL 
 } from "@/constants";
@@ -23,7 +21,7 @@ test.describe('Navigation Detail Page', () => {
     });
 
     await test.step('Verify user is on product detail page', async () => {
-      await expect(page).toHaveURL(DETAILS_PAGE_URL);
+      await expect(page).toHaveURL(PATH.DETAILS_PAGE);
       await expect(detailPage.productName).toHaveText(PRODUCTS.BACKPACK);
     });
   });
@@ -34,7 +32,7 @@ test.describe('Navigation Detail Page', () => {
     });
 
     await test.step('Verify user is on product detail page', async () => {
-      await expect(page).toHaveURL(DETAILS_PAGE_URL);
+      await expect(page).toHaveURL(PATH.DETAILS_PAGE);
       await expect(detailPage.productImage).toBeVisible();
     })
   });
@@ -44,12 +42,12 @@ test.describe('Navigation Detail Page', () => {
       await inventoryPage.goToProductDetailByName(PRODUCTS.BACKPACK);
     });
 
-    await test.step('Open cart', async () => {
+    await test.step('Navigate to cart page', async () => {
       await cartPage.openCart();
     });
 
     await test.step('Verify cart page is displayed', async () => {
-      await expect(page).toHaveURL(CART_URL);
+      await expect(page).toHaveURL(PATH.CART);
       await expect(cartPage.title).toBeVisible();
     });
   });
@@ -64,7 +62,7 @@ test.describe('Navigation Detail Page', () => {
     });
 
     await test.step('Verify inventory page is displayed', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
       await expect(inventoryPage.title).toBeVisible();
     });
   });
@@ -79,7 +77,7 @@ test.describe('Navigation Detail Page', () => {
     });
 
     await test.step('Verify inventory page is displayed', async () => {
-      await expect(page).toHaveURL(INVENTORY_URL);
+      await expect(page).toHaveURL(PATH.INVENTORY);
       await expect(inventoryPage.title).toBeVisible();
     });
   });
@@ -93,12 +91,12 @@ test.describe('Navigation Detail Page', () => {
       await inventoryPage.getAddToCartButton('add-to-cart').click();
     });
 
-    await test.step('Open cart', async () => {
+    await test.step('Navigate to cart page', async () => {
       await cartPage.openCart();
     });
 
     await test.step('Verify cart page is displayed', async () => {
-      await expect(page).toHaveURL(CART_URL);
+      await expect(page).toHaveURL(PATH.CART);
       await expect(cartPage.title).toBeVisible();
     });
   });
@@ -108,7 +106,7 @@ test.describe('Navigation Detail Page', () => {
       await inventoryPage.getAddToCartButton('add-to-cart-sauce-labs-backpack').click();
     });
 
-    await test.step('Open cart', async () => {
+    await test.step('Navigate to cart page', async () => {
       await cartPage.openCart();
     });
 
@@ -118,7 +116,7 @@ test.describe('Navigation Detail Page', () => {
     });
 
     await test.step('Verify user is on product detail page', async () => {
-      await expect(page).toHaveURL(DETAILS_PAGE_URL);
+      await expect(page).toHaveURL(PATH.DETAILS_PAGE);
       await expect(detailPage.productName).toHaveText(PRODUCTS.BACKPACK);
     });
   })
