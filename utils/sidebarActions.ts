@@ -1,3 +1,4 @@
+// Libs
 import { Locator } from "@playwright/test";
 
 export async function openMenuIfNotVisible(menuButton: Locator, menu: Locator) {

@@ -1,3 +1,4 @@
+// Libs
 import { Locator, Page } from "@playwright/test";
 
 export class DetailPage {
@@ -20,4 +21,4 @@ export class DetailPage {
   async clickBackToProductsButton() {
     await this.backToProductsButton.click();
   }
-}
+};

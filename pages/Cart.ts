@@ -1,5 +1,8 @@
-import { HEADINGS } from "@/constants";
+// Libs
 import { Locator, Page } from "@playwright/test";
+
+// Constants
+import { HEADINGS } from "@/constants";
 
 export class CartPage {
   readonly page: Page;
@@ -54,4 +57,4 @@ export class CartPage {
   async clickCancelButton() {
     await this.cancelButton.click();
   }
-}
+};

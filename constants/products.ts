@@ -5,6 +5,6 @@ const PRODUCTS = {
   FLEECE_JACKET: 'Sauce Labs Fleece Jacket',
   ONE_SIE: 'Sauce Labs Onesie',
   T_SHIRT: 'Test.allTheThings() T-Shirt (Red)'
-}
+};
 
-export { PRODUCTS }
+export { PRODUCTS };

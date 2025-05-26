@@ -1,5 +1,8 @@
+// Libs
 import { expect, Locator, Page } from "@playwright/test";
-import { BASE_URL } from '../constants';
+
+// Constants
+import { BASE_URL } from '@/constants';
 
 export class LoginPage {
   readonly page: Page;
@@ -30,4 +33,4 @@ export class LoginPage {
     await expect(this.errorMessage).toBeVisible();
     await expect(this.errorMessage).toHaveText(message);
   }
-}
+};

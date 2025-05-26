@@ -80,5 +80,5 @@ test.describe('Cart and Navigation Tests', () => {
       await expect(page).toHaveURL(PATH.INVENTORY);
       await expect(inventoryPage.title).toBeVisible();
     });
-  })
+  });
 });

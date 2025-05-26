@@ -1,3 +1,4 @@
+// Libs
 import { Locator, Page } from "@playwright/test";
 
 export class SidebarMenuPage {
@@ -20,17 +21,17 @@ export class SidebarMenuPage {
   async clickMenuItem(itemName: Locator) {
     await this.menuButton.click();
     await itemName.click();
-  };
+  }
 
   async logout() {
     await this.clickMenuItem(this.logoutLink)
-  };
+  }
 
   async closeMenu() {
     await this.clickMenuItem(this.closeMenuButton)
-  };
+  }
 
   async goToAllItems() {
     await this.clickMenuItem(this.allItemsLink)
-  };
+  }
 };

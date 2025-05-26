@@ -26,5 +26,5 @@ test.describe('Menu Tests', () => {
       await sidebarMenuPage.closeMenu();
       await expect(sidebarMenuPage.menu).toBeHidden();
     });
-  })
-})
+  });
+});

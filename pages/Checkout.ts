@@ -1,5 +1,8 @@
-import { HEADINGS } from '@/constants';
+// Libs
 import { Page, Locator } from '@playwright/test';
+
+// Constants
+import { HEADINGS } from '@/constants';
 
 export class CheckoutPage {
   readonly page: Page;

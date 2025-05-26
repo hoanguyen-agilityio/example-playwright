@@ -59,6 +59,6 @@ test.describe('Sorting Tests', () => {
       const sorted = [...prices].sort((a, b) => b - a);
 
       expect(prices).toEqual(sorted);
-    })
-  })
+    });
+  });
 });

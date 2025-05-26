@@ -8,7 +8,7 @@ const PATH = {
   CART: /.*cart/,
   CHECKOUT_STEP_ONE: /.*checkout-step-one/,
   DETAILS_PAGE: /inventory-item\.html\?id=\d+/
-}
+};
 
 export { 
   BASE_URL, 

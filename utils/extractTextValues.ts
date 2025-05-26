@@ -1,3 +1,4 @@
+// Libs
 import { Locator } from "@playwright/test";
 
 export const extractTextValues = async (locator: Locator): Promise<string[]> => {
@@ -11,4 +12,4 @@ export const extractTextValues = async (locator: Locator): Promise<string[]> => 
     }
   }
   return values;
-}
+};

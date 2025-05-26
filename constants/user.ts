@@ -19,4 +19,4 @@ const USER = {
   EMPTY: ''
 }
 
-export { USER }
+export { USER };

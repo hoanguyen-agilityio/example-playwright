@@ -13,7 +13,7 @@ test.describe('Navigation Detail Page', () => {
     await test.step('Navigate to products page', async () => {
       await page.goto(PRODUCTS_URL);
     });
-  })
+  });
 
   test('Verify user can navigate to product details by name', async ({ page, inventoryPage, detailPage }) => {
     await test.step('Click on product title by name', async () => {
@@ -34,7 +34,7 @@ test.describe('Navigation Detail Page', () => {
     await test.step('Verify user is on product detail page', async () => {
       await expect(page).toHaveURL(PATH.DETAILS_PAGE);
       await expect(detailPage.productImage).toBeVisible();
-    })
+    });
   });
 
   test('Verify user can access empty cart page', async ({ page, inventoryPage, cartPage }) => {
@@ -119,5 +119,5 @@ test.describe('Navigation Detail Page', () => {
       await expect(page).toHaveURL(PATH.DETAILS_PAGE);
       await expect(detailPage.productName).toHaveText(PRODUCTS.BACKPACK);
     });
-  })
+  });
 });

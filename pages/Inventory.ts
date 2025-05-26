@@ -1,6 +1,11 @@
-import { HEADINGS } from "@/constants";
-import { extractTextValues } from "@/utils";
+// Libs
 import { expect, Locator, Page } from "@playwright/test";
+
+// Constants
+import { HEADINGS } from "@/constants";
+
+// Utils
+import { extractTextValues } from "@/utils";
 
 export class InventoryPage {
   readonly page: Page;
@@ -29,19 +34,19 @@ export class InventoryPage {
     const priceElements = await this.page.locator('[data-test="inventory-item-price"]');
     const pricesAsText = await extractTextValues(priceElements);
     return pricesAsText.map(text => parseFloat(text.replace('$', '')));
-  };
+  }
 
   async sortByPriceLowToHigh() {
     await this.sortSelect.selectOption('lohi');
-  };
+  }
 
   async sortByNameZToA() {
     await this.sortSelect.selectOption('za');
-  };
+  }
 
   async sortByPriceHighToLow() {
     await this.sortSelect.selectOption('hilo');
-  };
+  }
 
   async getAllItemNames() {
     const nameElements = await this.page.locator('[data-test="inventory-item-name"]');
@@ -70,4 +75,4 @@ export class InventoryPage {
 
     await addToCartButton.click();
   }
-}
+};

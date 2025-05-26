@@ -39,4 +39,4 @@ test.describe('Cart functionality on detail page', () => {
       await expect(inventoryPage.getAddToCartButton('add-to-cart')).toBeVisible();
     });
   })
-})
+});
