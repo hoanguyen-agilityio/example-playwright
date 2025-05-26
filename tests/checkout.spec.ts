@@ -13,17 +13,13 @@ import {
 } from '@/constants';
 
 test.describe('Checkout Tests', () => {
-  test.beforeEach(async ({ page, cartPage }) => {
+  test.beforeEach(async ({ page, cartPage, inventoryPage }) => {
     await test.step('Navigate to product page', async () => {
       await page.goto(PRODUCTS_URL);
     });
 
     await test.step('Add "Sauce Labs Backpack" to cart', async () => {
-      const addToCartButton = page.locator('.inventory_item')
-        .filter({ hasText: PRODUCTS.BACKPACK })
-        .getByRole('button', { name: 'Add to cart' });
-
-      await addToCartButton.click();
+      inventoryPage.addProductToCart(PRODUCTS.BACKPACK)
     });
 
     await test.step('Open cart', async () => {

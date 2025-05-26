@@ -76,4 +76,12 @@ export class InventoryPage {
     await expect(productImg).toBeVisible();
     await productImg.click();
   }
+
+  async addProductToCart(productName: string) {
+    const addToCartButton = this.page.locator('.inventory_item')
+      .filter({ hasText: productName })
+      .getByRole('button', { name: 'Add to cart' });
+
+    await addToCartButton.click();
+  }
 }
