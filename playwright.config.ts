@@ -32,6 +32,8 @@ export default defineConfig({
     baseURL: 'https://www.saucedemo.com/',
     headless: true,
     trace: 'on-first-retry',
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
     testIdAttribute: 'data-test',
   },
 
