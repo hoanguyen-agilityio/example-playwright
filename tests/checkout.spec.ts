@@ -6,7 +6,6 @@ import {
   CHECKOUT_STEP_ONE,
   CHECKOUT_URL,
   ERROR_MESSAGES,
-  HEADINGS,
   PRODUCTS,
   PRODUCTS_URL,
   USER
@@ -41,7 +40,6 @@ test.describe('Checkout Tests', () => {
     await test.step('Verify checkout completion', async () => {
       await expect(page).toHaveURL(CHECKOUT_URL);
       await expect(checkoutPage.title).toBeVisible();
-      await expect(checkoutPage.title).toHaveText(HEADINGS.CHECKOUT_COMPLETE);
     });
   });
 

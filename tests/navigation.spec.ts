@@ -4,7 +4,6 @@ import { test, expect } from "@/fixtures";
 // Constants
 import { 
   CART_URL, 
-  HEADINGS, 
   INVENTORY_URL, 
   PRODUCTS_URL, 
   USER 
@@ -24,7 +23,6 @@ test.describe('Cart and Navigation Tests', () => {
     await test.step('Verify cart page is displayed', async () => {
       await expect(page).toHaveURL(CART_URL);
       await expect(cartPage.title).toBeVisible();
-      await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
     });
   });
 
@@ -36,7 +34,6 @@ test.describe('Cart and Navigation Tests', () => {
     await test.step('Verify inventory page is displayed', async () => {
       await expect(page).toHaveURL(INVENTORY_URL);
       await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   });
 
@@ -48,7 +45,6 @@ test.describe('Cart and Navigation Tests', () => {
     await test.step('Verify products page is displayed', async () => {
       await expect(page).toHaveURL(INVENTORY_URL);
       await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   });
 
@@ -64,7 +60,6 @@ test.describe('Cart and Navigation Tests', () => {
     await test.step('Verify cart page is displayed', async () => {
       await expect(page).toHaveURL(CART_URL);
       await expect(cartPage.title).toBeVisible();
-      await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
     });
   });
 
@@ -85,7 +80,6 @@ test.describe('Cart and Navigation Tests', () => {
     await test.step('Verify products page is displayed', async () => {
       await expect(page).toHaveURL(INVENTORY_URL);
       await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   })
 });

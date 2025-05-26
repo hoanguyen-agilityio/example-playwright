@@ -25,7 +25,6 @@ test.describe('Login Tests', () => {
     await loginPage.login(USER.STANDARD_USER.USERNAME, USER.STANDARD_USER.PASSWORD);
     await expect(page).toHaveURL(INVENTORY_URL);
     await expect(inventoryPage.title).toBeVisible();
-    await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
   });
 
   test('Verify user gets error when logging in as locked out user', async ({ loginPage }) => {

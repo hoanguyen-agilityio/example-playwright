@@ -1,3 +1,4 @@
+import { HEADINGS } from "@/constants";
 import { Locator, Page } from "@playwright/test";
 
 export class CartPage {
@@ -15,7 +16,7 @@ export class CartPage {
     this.page = page;
     this.cartButton = page.getByTestId('shopping-cart-link');
     this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
-    this.title = page.getByTestId('title');
+    this.title = page.getByText(HEADINGS.YOUR_CART);
     this.menuButton = page.getByRole('button', { name: 'Open Menu' }); 
     this.cartItems = page.locator('.cart_item');
     this.removeButtons = page.getByRole('button', { name: 'Remove' });

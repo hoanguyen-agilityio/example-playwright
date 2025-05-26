@@ -1,3 +1,4 @@
+import { HEADINGS } from "@/constants";
 import { expect, Locator, Page } from "@playwright/test";
 
 export class InventoryPage {
@@ -7,7 +8,7 @@ export class InventoryPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.title = page.getByTestId('title');
+    this.title = page.getByText(HEADINGS.PRODUCTS);
     this.sortSelect = page.getByTestId('product-sort-container');
   }
 

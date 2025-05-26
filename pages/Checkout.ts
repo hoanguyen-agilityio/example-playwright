@@ -1,3 +1,4 @@
+import { HEADINGS } from '@/constants';
 import { Page, Locator } from '@playwright/test';
 
 export class CheckoutPage {
@@ -17,7 +18,7 @@ export class CheckoutPage {
     this.postalCodeInput = page.getByPlaceholder('Zip/Postal Code');
     this.continueButton = page.getByRole('button', { name: 'Continue' });
     this.finishButton = page.getByRole('button', { name: 'Finish' });
-    this.title = page.getByTestId('title');
+    this.title = page.getByText(HEADINGS.CHECKOUT_COMPLETE);
     this.errorMessage = page.getByTestId('error');
   }
 

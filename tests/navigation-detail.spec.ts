@@ -5,7 +5,6 @@ import { test, expect } from "@/fixtures";
 import { 
   CART_URL, 
   DETAILS_PAGE_URL, 
-  HEADINGS, 
   INVENTORY_URL, 
   PRODUCTS, 
   PRODUCTS_URL 
@@ -52,7 +51,6 @@ test.describe('Navigation Detail Page', () => {
     await test.step('Verify cart page is displayed', async () => {
       await expect(page).toHaveURL(CART_URL);
       await expect(cartPage.title).toBeVisible();
-      await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
     });
   });
 
@@ -68,7 +66,6 @@ test.describe('Navigation Detail Page', () => {
     await test.step('Verify inventory page is displayed', async () => {
       await expect(page).toHaveURL(INVENTORY_URL);
       await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   });
 
@@ -84,7 +81,6 @@ test.describe('Navigation Detail Page', () => {
     await test.step('Verify inventory page is displayed', async () => {
       await expect(page).toHaveURL(INVENTORY_URL);
       await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
     });
   });
 
@@ -104,7 +100,6 @@ test.describe('Navigation Detail Page', () => {
     await test.step('Verify cart page is displayed', async () => {
       await expect(page).toHaveURL(CART_URL);
       await expect(cartPage.title).toBeVisible();
-      await expect(cartPage.title).toHaveText(HEADINGS.YOUR_CART);
     });
   });
 
