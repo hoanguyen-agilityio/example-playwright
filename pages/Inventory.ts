@@ -1,4 +1,6 @@
-import { Locator, Page } from "@playwright/test";
+import { HEADINGS } from "@/constants";
+import { extractTextValues } from "@/utils";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class InventoryPage {
   readonly page: Page;
@@ -7,32 +9,26 @@ export class InventoryPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.title = page.getByTestId('title');
+    this.title = page.getByText(HEADINGS.PRODUCTS);
     this.sortSelect = page.getByTestId('product-sort-container');
   }
 
-  getAddToCartButton(itemTestId: string): Locator {
-    return this.page.getByTestId(`add-to-cart-${itemTestId}`);
+  getAddToCartButton(itemTest: string): Locator {
+    return this.page.getByTestId(itemTest);
   }
 
   getRemoveButton(): Locator {
     return this.page.getByRole('button', { name: 'Remove' });
   }
 
+  getCartBadge(): Locator {
+    return this.page.locator('[data-test="shopping-cart-badge"]');
+  }
+
   async getAllItemPrices() {
     const priceElements = await this.page.locator('[data-test="inventory-item-price"]');
-    const count = await priceElements.count();
-    const prices: number[] = [];
-
-    for (let i = 0; i < count; i++) {
-      const priceText = await priceElements.nth(i).textContent();
-      if (priceText) {
-        const price = parseFloat(priceText.replace('$', ''));
-        prices.push(price);
-      }
-    }
-
-    return prices;
+    const pricesAsText = await extractTextValues(priceElements);
+    return pricesAsText.map(text => parseFloat(text.replace('$', '')));
   };
 
   async sortByPriceLowToHigh() {
@@ -49,16 +45,29 @@ export class InventoryPage {
 
   async getAllItemNames() {
     const nameElements = await this.page.locator('[data-test="inventory-item-name"]');
-    const cont = await nameElements.count();
-    const names: string[] = [];
+    return await extractTextValues(nameElements);
+  }
 
-    for (let i = 0; i < cont; i++) {
-      const nameText = await nameElements.nth(i).textContent();
-      if (nameText) {
-        names.push(nameText);
-      }
-    }
+  async goToProductDetailByName(productName: string) {
+    const productCard = this.page.locator('.inventory_item').filter({ hasText: productName });
+    const productTitle = productCard.getByTestId('inventory-item-name');
 
-    return names;
+    await expect(productCard).toBeVisible();
+    await productTitle.click();
+  }
+
+  async goToProductDetailByImage(productImage: string) {
+    const productImg = this.page.getByTestId(productImage);
+
+    await expect(productImg).toBeVisible();
+    await productImg.click();
+  }
+
+  async addProductToCart(productName: string) {
+    const addToCartButton = this.page.locator('.inventory_item')
+      .filter({ hasText: productName })
+      .getByRole('button', { name: 'Add to cart' });
+
+    await addToCartButton.click();
   }
 }

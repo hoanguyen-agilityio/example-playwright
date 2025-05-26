@@ -1,1 +1,1 @@
-export * from './pageObjects';
+export * from './PageFixtures';

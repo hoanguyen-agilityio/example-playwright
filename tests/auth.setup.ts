@@ -3,16 +3,29 @@ import { test as setup } from '@playwright/test';
 import path from 'path';
 
 // Constants
-import { BASE_URL, PRODUCTS_URL, USER } from '@/constants';
+import { PRODUCTS_URL, USER } from '@/constants';
+
+// Pages
+import { LoginPage } from '@/pages';
 
 const authFile = path.join(__dirname, '../.auth/standard_user.json');
 
 setup('authenticate', async ({ page }) => {
-  await page.goto(BASE_URL);
-  await page.getByPlaceholder('Username').fill(USER.STANDARD_USER);
-  await page.getByPlaceholder('Password').fill(USER.PASSWORD);
-  await page.getByRole('button', { name: 'Login'}).click();
-  await page.waitForURL(PRODUCTS_URL);
+  const login = new LoginPage(page);
 
-  await page.context().storageState({ path: authFile });
+  await setup.step('Navigate to login page', async () => {
+    await login.goto();
+  });
+
+  await setup.step('Login', async () => {
+    await login.login(USER.STANDARD_USER.USERNAME, USER.STANDARD_USER.PASSWORD)
+  })
+
+  await setup.step('Wait for product page to load', async () => {
+    await page.waitForURL(PRODUCTS_URL);
+  });
+
+  await setup.step('Save authenticated storage state', async () => {
+    await page.context().storageState({ path: authFile });
+  });
 });

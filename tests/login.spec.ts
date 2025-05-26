@@ -1,5 +1,13 @@
+// Fixtures
 import { test, expect } from "@/fixtures";
-import { ERROR_MESSAGES, HEADINGS, INVENTORY_URL, USER } from "@/constants";
+
+// Constants
+import { 
+  ERROR_MESSAGES, 
+  HEADINGS, 
+  PATH, 
+  USER 
+} from "@/constants";
 
 test.use({
   storageState: {
@@ -14,44 +22,43 @@ test.describe('Login Tests', () => {
   });
 
   test('Verify user is able to login successfully with standard user', async ({ page, loginPage, inventoryPage }) => {
-    await loginPage.login(USER.STANDARD_USER, USER.PASSWORD);
-    await expect(page).toHaveURL(INVENTORY_URL);
+    await loginPage.login(USER.STANDARD_USER.USERNAME, USER.STANDARD_USER.PASSWORD);
+    await expect(page).toHaveURL(PATH.INVENTORY);
     await expect(inventoryPage.title).toBeVisible();
-    await expect(inventoryPage.title).toHaveText(HEADINGS.PRODUCTS);
   });
 
   test('Verify user gets error when logging in as locked out user', async ({ loginPage }) => {
-    await loginPage.login(USER.LOCKED_OUT_USER, USER.PASSWORD);
-    await loginPage.expectError(ERROR_MESSAGES.USER_LOCKED);
+    await loginPage.login(USER.LOCKED_OUT_USER.USERNAME, USER.LOCKED_OUT_USER.PASSWORD);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.USER_LOCKED);
   });
 
   test('Verify user cannot login with empty username and password', async ({ loginPage }) => {
     await loginPage.login(USER.EMPTY, USER.EMPTY);
-    await loginPage.expectError(ERROR_MESSAGES.USERNAME_REQUIRED);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.USERNAME_REQUIRED);
   });
 
   test('Verify user cannot login with valid username and empty password', async ({ loginPage }) => {
-    await loginPage.login(USER.STANDARD_USER, USER.EMPTY);
-    await loginPage.expectError(ERROR_MESSAGES.PASSWORD_REQUIRED);
+    await loginPage.login(USER.STANDARD_USER.USERNAME, USER.EMPTY);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.PASSWORD_REQUIRED);
   });
 
   test('Verify user cannot login with empty username and valid password', async ({ loginPage }) => {
-    await loginPage.login(USER.EMPTY, USER.PASSWORD);
-    await loginPage.expectError(ERROR_MESSAGES.USERNAME_REQUIRED);
+    await loginPage.login(USER.EMPTY, USER.STANDARD_USER.PASSWORD);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.USERNAME_REQUIRED);
   });
 
   test('Verify user cannot login with invalid username and password', async ({ loginPage }) => {
-    await loginPage.login(USER.INVALID_USERNAME, USER.INVALID_PASSWORD);
-    await loginPage.expectError(ERROR_MESSAGES.INVALID_ACCOUNT);
+    await loginPage.login(USER.INVALID_USER.USERNAME, USER.INVALID_USER.PASSWORD);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.INVALID_ACCOUNT);
   });
 
   test('Verify user cannot login with correct username and incorrect password', async ({ loginPage }) => {
-    await loginPage.login(USER.STANDARD_USER, USER.INVALID_PASSWORD);
-    await loginPage.expectError(ERROR_MESSAGES.INVALID_ACCOUNT);
+    await loginPage.login(USER.STANDARD_USER.USERNAME, USER.INVALID_USER.PASSWORD);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.INVALID_ACCOUNT);
   });
 
   test('Verify user cannot login with incorrect username and correct password', async ({ loginPage }) => {
-    await loginPage.login(USER.INVALID_USERNAME, USER.PASSWORD);
-    await loginPage.expectError(ERROR_MESSAGES.INVALID_ACCOUNT);
+    await loginPage.login(USER.INVALID_USER.USERNAME, USER.STANDARD_USER.PASSWORD);
+    await loginPage.verifyMsgErrorVisible(ERROR_MESSAGES.INVALID_ACCOUNT);
   });
 });

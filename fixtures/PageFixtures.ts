@@ -1,15 +1,16 @@
 import { test as base, expect } from '@playwright/test';
-import { CartPage, CheckoutPage, InventoryPage, LoginPage, SidebarMenu } from "@/pages"
+import { CartPage, CheckoutPage, DetailPage, InventoryPage, LoginPage, SidebarMenuPage } from "@/pages"
 
-type PageObjects = {
+type PageFixtures = {
   loginPage: LoginPage;
   inventoryPage: InventoryPage;
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
-  sidebarMenu: SidebarMenu;
+  sidebarMenuPage: SidebarMenuPage;
+  detailPage: DetailPage;
 };
 
-const test = base.extend<PageObjects>({
+const test = base.extend<PageFixtures>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     
@@ -35,10 +36,16 @@ const test = base.extend<PageObjects>({
     await use(checkoutPage);
   },
 
-  sidebarMenu: async ({ page }, use) => {
-    const sidebarMenu = new SidebarMenu(page);
+  sidebarMenuPage: async ({ page }, use) => {
+    const sidebarMenuPage = new SidebarMenuPage(page);
 
-    await use(sidebarMenu);
+    await use(sidebarMenuPage);
+  },
+
+  detailPage: async ({ page }, use) => {
+    const detailPage = new DetailPage(page);
+
+    await use(detailPage);
   }
 });
 

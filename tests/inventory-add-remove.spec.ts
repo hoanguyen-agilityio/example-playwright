@@ -1,14 +1,17 @@
+// Fixtures
 import { test, expect } from "@/fixtures";
+
+// Constants
 import { PRODUCTS_URL } from "@/constants";
 
-test.describe('Cart tests', () => {
+test.describe('Cart functionality on inventory page', () => {
   test.beforeEach(async ({ page, inventoryPage }) => {
     await test.step('Navigate to product page', async () => {
       await page.goto(PRODUCTS_URL);
     });
 
     await test.step('Click on "Add to cart" button', async () => {
-      await inventoryPage.getAddToCartButton('sauce-labs-backpack').click();
+      await inventoryPage.getAddToCartButton('add-to-cart-sauce-labs-backpack').click();
     });
   })
 
@@ -24,7 +27,7 @@ test.describe('Cart tests', () => {
     });
 
     await test.step('Verify the "Add to cart" button is visible', async () => {
-      await expect(inventoryPage.getAddToCartButton('sauce-labs-backpack')).toBeVisible();
+      await expect(inventoryPage.getAddToCartButton('add-to-cart-sauce-labs-backpack')).toBeVisible();
     });
   });
 });

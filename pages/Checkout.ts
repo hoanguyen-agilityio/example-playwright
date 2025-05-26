@@ -1,3 +1,4 @@
+import { HEADINGS } from '@/constants';
 import { Page, Locator } from '@playwright/test';
 
 export class CheckoutPage {
@@ -17,23 +18,25 @@ export class CheckoutPage {
     this.postalCodeInput = page.getByPlaceholder('Zip/Postal Code');
     this.continueButton = page.getByRole('button', { name: 'Continue' });
     this.finishButton = page.getByRole('button', { name: 'Finish' });
-    this.title = page.getByTestId('title');
+    this.title = page.getByText(HEADINGS.CHECKOUT_COMPLETE);
     this.errorMessage = page.getByTestId('error');
   }
 
-  async fillCheckoutForm(first: string, last: string, zip: string) {
-    await this.firstNameInput.fill(first);
-    await this.lastNameInput.fill(last);
-    await this.postalCodeInput.fill(zip);
+  async fillCheckoutForm(firstName: string, lastName: string, zipCode: string) {
+    await this.firstNameInput.fill(firstName);
+    await this.lastNameInput.fill(lastName);
+    await this.postalCodeInput.fill(zipCode);
   }
 
-  async continueToFinish() {
+  async clickContinueButton() {
     await this.continueButton.click();
-    await this.finishButton.click();
   }
 
-  async completeCheckout(first: string, last: string, zip: string) {
-    await this.fillCheckoutForm(first, last, zip);
-    await this.continueToFinish();
+  async clickFinishButton() {
+     await this.finishButton.click();
+  }
+
+  async completeCheckout(firstName: string, lastName: string, zipCode: string) {
+    await this.fillCheckoutForm(firstName, lastName, zipCode);
   }
 }

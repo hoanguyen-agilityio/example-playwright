@@ -33,9 +33,6 @@ export default defineConfig({
     headless: true,
     trace: 'on-first-retry',
     testIdAttribute: 'data-test',
-    launchOptions: {
-      slowMo: 50,
-    }
   },
 
   /* Configure projects for major browsers */

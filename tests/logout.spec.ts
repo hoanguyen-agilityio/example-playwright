@@ -1,17 +1,21 @@
-// Libs
+// Fixtures
 import { test, expect } from "@/fixtures";
 
 // Constants
-import { BASE_URL, HEADINGS, PRODUCTS_URL } from "@/constants";
+import { 
+  BASE_URL, 
+  HEADINGS, 
+  PRODUCTS_URL 
+} from "@/constants";
 
 test.describe('Logout Tests', () => {
-  test('Verify user is able to logout successfully', async ({ page, sidebarMenu }) => {
+  test('Verify user is able to logout successfully', async ({ page, sidebarMenuPage }) => {
     await test.step('Navigate to product page', async () => {
       await page.goto(PRODUCTS_URL)
     });
 
     await test.step('Click on logout link', async () => {
-      await sidebarMenu.logout();
+      await sidebarMenuPage.logout();
     })
 
     await test.step('Verify user is logged out', async () => {

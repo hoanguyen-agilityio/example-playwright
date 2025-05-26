@@ -1,3 +1,4 @@
+import { HEADINGS } from "@/constants";
 import { Locator, Page } from "@playwright/test";
 
 export class CartPage {
@@ -6,28 +7,25 @@ export class CartPage {
   readonly checkoutButton: Locator;
   readonly title: Locator; 
   readonly menuButton: Locator;
-  readonly allItemsLink: Locator;
   readonly cartItems: Locator;
   readonly removeButtons: Locator;
+  readonly continueShoppingButton: Locator;
+  readonly cancelButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.cartButton = page.getByTestId('shopping-cart-link');
     this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
-    this.title = page.getByTestId('title');
-    this.menuButton = page.getByRole('button', { name: 'Open Menu' });
-    this.allItemsLink = page.getByTestId('inventory-sidebar-link');
+    this.title = page.getByText(HEADINGS.YOUR_CART);
+    this.menuButton = page.getByRole('button', { name: 'Open Menu' }); 
     this.cartItems = page.locator('.cart_item');
     this.removeButtons = page.getByRole('button', { name: 'Remove' });
+    this.continueShoppingButton = page.getByRole('button', { name: 'Continue Shopping' });
+    this.cancelButton = page.getByRole('button', { name: 'Cancel' });
   }
 
   async openCart() {
     await this.cartButton.click();
-  }
-
-  async goToAllItems() {
-    await this.menuButton.click();
-    await this.allItemsLink.click();
   }
 
   async removeItemByTestId(testId: string) {
@@ -43,5 +41,17 @@ export class CartPage {
     while (await this.removeButtons.count() > 0) {
       await this.removeButtons.nth(0).click();
     }
+  }
+
+  async clickContinueShopping() {
+    await this.continueShoppingButton.click();
+  }
+
+  async clickCheckoutButton() {
+    await this.checkoutButton.click();
+  }
+
+  async clickCancelButton() {
+    await this.cancelButton.click();
   }
 }
