@@ -1,4 +1,5 @@
 import { HEADINGS } from "@/constants";
+import { extractTextValues } from "@/utils";
 import { expect, Locator, Page } from "@playwright/test";
 
 export class InventoryPage {
@@ -26,18 +27,8 @@ export class InventoryPage {
 
   async getAllItemPrices() {
     const priceElements = await this.page.locator('[data-test="inventory-item-price"]');
-    const count = await priceElements.count();
-    const prices: number[] = [];
-
-    for (let i = 0; i < count; i++) {
-      const priceText = await priceElements.nth(i).textContent();
-      if (priceText) {
-        const price = parseFloat(priceText.replace('$', ''));
-        prices.push(price);
-      }
-    }
-
-    return prices;
+    const pricesAsText = await extractTextValues(priceElements);
+    return pricesAsText.map(text => parseFloat(text.replace('$', '')));
   };
 
   async sortByPriceLowToHigh() {
@@ -54,17 +45,7 @@ export class InventoryPage {
 
   async getAllItemNames() {
     const nameElements = await this.page.locator('[data-test="inventory-item-name"]');
-    const cont = await nameElements.count();
-    const names: string[] = [];
-
-    for (let i = 0; i < cont; i++) {
-      const nameText = await nameElements.nth(i).textContent();
-      if (nameText) {
-        names.push(nameText);
-      }
-    }
-
-    return names;
+    return await extractTextValues(nameElements);
   }
 
   async goToProductDetailByName(productName: string) {
