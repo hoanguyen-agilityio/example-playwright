@@ -17,18 +17,20 @@ export class SidebarMenuPage {
     this.allItemsLink = page.getByTestId('inventory-sidebar-link');
   }
 
-  async logout() {
+  async clickMenuItem(itemName: Locator) {
     await this.menuButton.click();
-    await this.logoutLink.click();
+    await itemName.click();
+  };
+
+  async logout() {
+    await this.clickMenuItem(this.logoutLink)
   };
 
   async closeMenu() {
-    await this.menuButton.click();
-    await this.closeMenuButton.click();
+    await this.clickMenuItem(this.closeMenuButton)
   };
 
   async goToAllItems() {
-    await this.menuButton.click();
-    await this.allItemsLink.click();
+    await this.clickMenuItem(this.allItemsLink)
   };
-}
+};
