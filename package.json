@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "playwright test --reporter html && npm run prepare:report",
+    "prepare:report": "cp -r playwright-report public/report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
