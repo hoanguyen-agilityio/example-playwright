@@ -23,8 +23,11 @@ jobs:
       - name: Install Vercel CLI
         run: npm install -g vercel
       - name: Deploy Playwright report to Vercel
+        id: deploy
         run: |
-          vercel --prod --cwd=playwright-report --token=${{ secrets.VERCEL_TOKEN }} --yes
+          DEPLOY_URL=$(vercel --prod --cwd=playwright-report --token=${{ secrets.VERCEL_TOKEN }} --yes --confirm)
+          echo "$DEPLOY_URL"
+          echo "vercel-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
