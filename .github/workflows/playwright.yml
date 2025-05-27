@@ -20,7 +20,7 @@ jobs:
       - name: Run Playwright tests
         run: pnpm exec playwright test
       - name: Install Vercel CLI
-        run: pnpm install -g vercel
+        run: npm install -g vercel
       - name: Deploy Playwright report to Vercel
         run: |
           vercel --prod --prebuilt --cwd=playwright-report --token=${{ secrets.VERCEL_TOKEN }} --confirm
