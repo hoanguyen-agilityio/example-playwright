@@ -23,7 +23,7 @@ jobs:
         run: npm install -g vercel
       - name: Deploy Playwright report to Vercel
         run: |
-          vercel --prod --prebuilt --cwd=playwright-report --token=${{ secrets.VERCEL_TOKEN }} --confirm
+          vercel --prod --cwd=playwright-report --token=${{ secrets.VERCEL_TOKEN }} --yes
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
