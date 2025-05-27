@@ -67,22 +67,22 @@ export default defineConfig({
       dependencies: ['setup'],
     },
 
-    // {
-    //   name: 'iPhone 13',
-    //   use: {
-    //     ...devices['iPhone 13'],
-    //     storageState: './.auth/standard_user.json',
-    //   },
-    //   dependencies: ['setup'],
-    // },
+    {
+      name: 'iPhone 13',
+      use: {
+        ...devices['iPhone 13'],
+        storageState: './.auth/standard_user.json',
+      },
+      dependencies: ['setup'],
+    },
 
-    // {
-    //   name: 'BlackBerry Z30',
-    //   use: {
-    //     ...devices['BlackBerry Z30'],
-    //     storageState: './.auth/standard_user.json',
-    //   },
-    //   dependencies: ['setup'],
-    // }
+    {
+      name: 'BlackBerry Z30',
+      use: {
+        ...devices['BlackBerry Z30'],
+        storageState: './.auth/standard_user.json',
+      },
+      dependencies: ['setup'],
+    }
   ],
 });
